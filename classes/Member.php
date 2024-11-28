@@ -3,7 +3,7 @@
 class Member {
     private $db;
 
-    // Attributter for klassen Member
+    // Attributes for the Member class
     public $memberID;
     public $localMemberID;
     public $firstName;
@@ -14,74 +14,76 @@ class Member {
     public $city;
     public $phone;
     public $email;
-    public $enrollmentDate;
-    public $agreement;
+    public $joinDate;
+    public $directDebitAgreement;
     public $membershipPaidUntil;
     public $youthMembership;
-    public $cutOffYearForYouthMembership;
+    public $youthMembershipYear;
     public $isAqua;
     public $isDistrictAdmin;
     public $isAdmin;
-    public $hasLimitedRights;
-    public $hasFullRights;
+    public $allowRegion;
+    public $allowAll;
 
-    // Constructor til initialisering af databasen
+    // Constructor to initialize the database
     public function __construct($db) {
         $this->db = $db;
     }
 
-    // Opret et nyt medlem
+    // Create a new member
     public function createMember($data) {
-        $sql = "INSERT INTO Medlem (LokalMedlemsID, Fornavn, Efternavn, Adresse1, Adresse2, Postnummer, By, Telefon, Email, Indmeldelsesdato, BS_Aftale, KontingentBetaltTil, Ungdomskontingent, Kredadmin, Admin, TilladKreds, TilladAlle)
-        VALUES (:LokalMedlemsID, :firstName, :lastName, :address1, :address2, :postalCode, :city, :phone, :email, :enrollmentDate, :agreement, :membershipPaidUntil, :youthMembership, :isDistrictAdmin, :isAdmin, :hasLimitedRights, :hasFullRights)";
+        $sql = "INSERT INTO Member (LocalMemberID, FirstName, LastName, Address1, Address2, PostalCode, City, Phone, Email, JoinDate, DirectDebitAgreement, MembershipPaidUntil, YouthMembership, YouthMembershipYear, IsAqua, IsDistrictAdmin, IsAdmin, AllowRegion, AllowAll)
+        VALUES (:localMemberID, :firstName, :lastName, :address1, :address2, :postalCode, :city, :phone, :email, :joinDate, :directDebitAgreement, :membershipPaidUntil, :youthMembership, :youthMembershipYear, :isAqua, :isDistrictAdmin, :isAdmin, :allowRegion, :allowAll)";
 
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($data);
     }
 
-    // Hent alle medlemmer
+    // Retrieve all members
     public function getAllMembers() {
-        $sql = "SELECT * FROM Medlem";
+        $sql = "SELECT * FROM Member";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Hent et medlem baseret på ID
+    // Retrieve a member by ID
     public function getMemberById($memberID) {
-        $sql = "SELECT * FROM Medlem WHERE MedlemID = :memberID";
+        $sql = "SELECT * FROM Member WHERE MemberID = :memberID";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':memberID' => $memberID]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Opdater et medlem
+    // Update a member
     public function updateMember($data) {
-        $sql = "UPDATE Medlem SET
-            Fornavn = :firstName,
-            Efternavn = :lastName,
-            Adresse1 = :address1,
-            Adresse2 = :address2,
-            Postnummer = :postalCode,
-            By = :city,
-            Telefon = :phone,
+        $sql = "UPDATE Member SET
+            FirstName = :firstName,
+            LastName = :lastName,
+            Address1 = :address1,
+            Address2 = :address2,
+            PostalCode = :postalCode,
+            City = :city,
+            Phone = :phone,
             Email = :email,
-            Indmeldelsesdato = :enrollmentDate,
-            BS_Aftale = :agreement,
-            KontingentBetaltTil = :membershipPaidUntil,
-            Ungdomskontingent = :youthMembership,
-            Kredadmin = :isDistrictAdmin,
-            Admin = :isAdmin,
-            TilladKreds = :hasLimitedRights,
-            TilladAlle = :hasFullRights
-            WHERE MedlemID = :memberID";
+            JoinDate = :joinDate,
+            DirectDebitAgreement = :directDebitAgreement,
+            MembershipPaidUntil = :membershipPaidUntil,
+            YouthMembership = :youthMembership,
+            YouthMembershipYear = :youthMembershipYear,
+            IsAqua = :isAqua,
+            IsDistrictAdmin = :isDistrictAdmin,
+            IsAdmin = :isAdmin,
+            AllowRegion = :allowRegion,
+            AllowAll = :allowAll
+            WHERE MemberID = :memberID";
 
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($data);
     }
 
-    // Slet et medlem
+    // Delete a member
     public function deleteMember($memberID) {
-        $sql = "DELETE FROM Medlem WHERE MedlemID = :memberID";
+        $sql = "DELETE FROM Member WHERE MemberID = :memberID";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':memberID' => $memberID]);
     }
