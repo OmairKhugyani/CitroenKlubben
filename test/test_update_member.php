@@ -13,23 +13,25 @@ $member = new Member($db);
 
 // Data til opdatering
 $data = [
-    'memberID' => 1, // ID'et på det medlem, du vil opdatere
-    'firstName' => 'Updated',
-    'lastName' => 'Person',
-    'address1' => 'Ny Testvej 1',
-    'address2' => 'Lejlighed 2',
+    'memberID' => 1, // ID for medlemmet, der skal opdateres
+    'firstName' => 'UpdatedName',
+    'lastName' => 'UpdatedLastName',
+    'address1' => 'Updated Address 1',
+    'address2' => null,
     'postalCode' => '5678',
-    'city' => 'Ny By',
+    'city' => 'UpdatedCity',
     'phone' => '87654321',
     'email' => 'updated@example.com',
-    'enrollmentDate' => date('Y-m-d'),
-    'agreement' => 1,
+    'joinDate' => date('Y-m-d'),
+    'directDebitAgreement' => 0,
     'membershipPaidUntil' => '2026-12-31',
     'youthMembership' => 1,
-    'isDistrictAdmin' => 1,
-    'isAdmin' => 1,
-    'hasLimitedRights' => 0,
-    'hasFullRights' => 1
+    'youthMembershipYear' => 2026,
+    'apua' => 1, // Opdateret nøgle
+    'regionAdmin' => 0,
+    'admin' => 0,
+    'allowRegion' => 0,
+    'allowAll' => 1
 ];
 
 

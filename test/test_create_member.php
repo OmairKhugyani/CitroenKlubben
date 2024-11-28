@@ -9,7 +9,7 @@ require '../classes/Member.php';
 $member = new Member($db);
 
 $data = [
-    'LokalMedlemsID' => 'MIJ003',
+    'localMemberID' => 'MIJ003',
     'firstName' => 'Test',
     'lastName' => 'Person',
     'address1' => 'Testvej 1',
@@ -18,15 +18,18 @@ $data = [
     'city' => 'Testby',
     'phone' => '12345678',
     'email' => 'test@example.com',
-    'enrollmentDate' => date('Y-m-d'),
-    'agreement' => 1,
+    'joinDate' => date('Y-m-d'),
+    'directDebitAgreement' => 1,
     'membershipPaidUntil' => '2025-12-31',
     'youthMembership' => 0,
-    'isDistrictAdmin' => 0,
-    'isAdmin' => 0,
-    'hasLimitedRights' => 0,
-    'hasFullRights' => 1
+    'youthMembershipYear' => null,
+    'apua' => 0,
+    'regionAdmin' => 0,
+    'admin' => 0,
+    'allowRegion' => 0,
+    'allowAll' => 1
 ];
+
 
 
 if ($member->createMember($data)) {

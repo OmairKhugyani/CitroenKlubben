@@ -32,9 +32,9 @@ class Member {
 
     // Create a new member
     public function createMember($data) {
-        $sql = "INSERT INTO Member (LocalMemberID, FirstName, LastName, Address1, Address2, PostalCode, City, Phone, Email, JoinDate, DirectDebitAgreement, MembershipPaidUntil, YouthMembership, YouthMembershipYear, IsAqua, IsDistrictAdmin, IsAdmin, AllowRegion, AllowAll)
-        VALUES (:localMemberID, :firstName, :lastName, :address1, :address2, :postalCode, :city, :phone, :email, :joinDate, :directDebitAgreement, :membershipPaidUntil, :youthMembership, :youthMembershipYear, :isAqua, :isDistrictAdmin, :isAdmin, :allowRegion, :allowAll)";
-
+        $sql = "INSERT INTO Member (LocalMemberID, FirstName, LastName, Address1, Address2, PostalCode, City, Phone, Email, JoinDate, DirectDebitAgreement, MembershipPaidUntil, YouthMembership, YouthMembershipYear, Apua, RegionAdmin, Admin, AllowRegion, AllowAll)
+        VALUES (:localMemberID, :firstName, :lastName, :address1, :address2, :postalCode, :city, :phone, :email, :joinDate, :directDebitAgreement, :membershipPaidUntil, :youthMembership, :youthMembershipYear, :apua, :regionAdmin, :admin, :allowRegion, :allowAll)";
+        
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($data);
     }
@@ -70,9 +70,9 @@ class Member {
             MembershipPaidUntil = :membershipPaidUntil,
             YouthMembership = :youthMembership,
             YouthMembershipYear = :youthMembershipYear,
-            IsAqua = :isAqua,
-            IsDistrictAdmin = :isDistrictAdmin,
-            IsAdmin = :isAdmin,
+            Apua = :apua,
+            RegionAdmin = :regionAdmin,
+            Admin = :admin,
             AllowRegion = :allowRegion,
             AllowAll = :allowAll
             WHERE MemberID = :memberID";

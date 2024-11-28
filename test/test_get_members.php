@@ -20,7 +20,7 @@ if (!empty($members)) {
     
     // Loop gennem hver række i resultatet og udskriv detaljer om medlemmer
     foreach ($members as $m) {
-        echo $m['LokalMedlemsID'] . " - " . $m['Fornavn'] . " " . $m['Efternavn'] . "\n";
+        echo $m['LocalMemberID'] . " - " . $m['FirstName'] . " " . $m['LastName'] . "\n";
     }
 } else {
     // Hvis der ikke findes medlemmer, udskriv en besked

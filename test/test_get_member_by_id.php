@@ -20,9 +20,9 @@ $result = $member->getMemberById($memberID);
 // Kontroller, om medlemmet blev fundet
 if ($result) {
     echo "Medlem fundet:\n";
-    echo "ID: " . $result['MedlemID'] . "\n";
-    echo "LokalMedlemsID: " . $result['LokalMedlemsID'] . "\n";
-    echo "Navn: " . $result['Fornavn'] . " " . $result['Efternavn'] . "\n";
+    echo "ID: " . $result['MemberID'] . "\n";
+    echo "MemberID: " . $result['MemberID'] . "\n";
+    echo "Name: " . $result['FirstName'] . " " . $result['LastName'] . "\n";
     echo "Email: " . $result['Email'] . "\n";
 } else {
     // Hvis medlemmet ikke findes, udskriv en besked
