@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 800 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-14475,-2475)">
+        <g id="Page-1">
+            <g id="Icon-Set">
+                <path id="pencil" d="M14950,2650L14800,2650L14800,2550C14799.2,2525.3 14800.5,2524.2 14825,2525L14925,2525C14949.5,2525.18 14950.1,2524.18 14950,2550L14950,2650ZM14950,3025C14898.6,3024.97 14814.6,3025 14800,3025L14800,2700L14950,2700L14950,3025ZM14875,3206.43L14800,3075L14950,3075L14875,3206.43ZM14950,2475L14800,2475C14769.8,2475 14750,2494.47 14750,2525L14750,3080.33L14850,3256.88C14865.1,3280.15 14884.9,3280.15 14900,3256.88L15000,3080.33L15000,2525C15000,2494.47 14980.2,2475.03 14950,2475Z" style="fill:white;"/>
+            </g>
+        </g>
+    </g>
+</svg>

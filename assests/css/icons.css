@@ -1,0 +1,62 @@
+.svg-pen {
+  background: url(../icons/pencil-svgrepo-com.svg) no-repeat top left;
+  background-size: contain;
+  width: 28px;
+  aspect-ratio: 1 / 1;
+  rotate: 45deg;
+  margin-right: 5px;
+}
+
+.svg-door {
+  background: url(../icons/door-svgrepo-com.svg) no-repeat top left;
+  background-size: contain;
+  width: 28px;
+  aspect-ratio: 1 / 1;
+  margin-right: 5px;
+}
+
+.svg-user {
+  background: url(../icons/user.svg) no-repeat top left;
+  background-size: contain;
+  width: 35px;
+  aspect-ratio: 1 / 1;
+}
+
+.svg-user-add {
+  background: url(../icons/user-add.svg) no-repeat top left;
+  background-size: contain;
+  width: 30px;
+  aspect-ratio: 1 / 1;
+  margin-right: 5px;
+}
+
+.svg-user-remove {
+  background: url(../icons/user-remove.svg) no-repeat top left;
+  background-size: contain;
+  width: 35px;
+  aspect-ratio: 1 / 1;
+  margin-right: 5px;
+}
+
+.svg-user-more {
+  background: url(../icons/user-more.svg) no-repeat top left;
+  background-size: contain;
+  width: 35px;
+  aspect-ratio: 1 / 1;
+}
+
+.svg-doc {
+  background: url(../icons/doc.svg) no-repeat top left;
+  background-size: contain;
+  width: 30px;
+  aspect-ratio: 1 / 1;
+  margin-right: 5px;
+}
+
+.svg-cetroen {
+  background: url(../icons/cetroen.svg) no-repeat top left;
+  background-size: contain;
+  width: 30px;
+  aspect-ratio: 1 / 1;
+  margin-right: 5px;
+}
