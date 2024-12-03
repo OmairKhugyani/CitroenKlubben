@@ -26,8 +26,11 @@ class Responsibilities {
     public function getAllResponsibilities() {
         $sql = "SELECT * FROM Responsibilities";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Returnér altid en tom array, hvis der ikke er data
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?? [];
     }
+    
 
     // Retrieve a responsibility by ID
     public function getResponsibilityById($roleID) {
