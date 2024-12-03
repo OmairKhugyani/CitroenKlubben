@@ -5,8 +5,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Indlæs databasekonfiguration og Member-klassen
-require '../config.php';
-require '../classes/Member.php';
+require '../../config.php';
+require '../../classes/Member.php';
 
 // Opret en ny instans af Member-klassen
 $member = new Member($db);

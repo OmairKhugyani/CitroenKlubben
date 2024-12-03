@@ -3,8 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require '../config.php';
-require '../classes/Member.php';
+require '../../config.php';
+require '../../classes/Member.php';
 
 $member = new Member($db);
 
@@ -29,8 +29,6 @@ $data = [
     'allowRegion' => 0,
     'allowAll' => 1
 ];
-
-
 
 if ($member->createMember($data)) {
     echo "Medlem oprettet succesfuldt!\n";
