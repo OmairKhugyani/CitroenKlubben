@@ -20,6 +20,7 @@
   background-size: contain;
   width: 35px;
   aspect-ratio: 1 / 1;
+  margin-right: 5px;
 }
 
 .svg-user-add {
@@ -43,6 +44,7 @@
   background-size: contain;
   width: 35px;
   aspect-ratio: 1 / 1;
+  margin-right: 5px;
 }
 
 .svg-doc {

@@ -1,5 +1,9 @@
-  <footer>
+</div>
+<footer>
+  <div>
     <p>Rattigheder reseveret for CitroenKlubben.dk © 2025</p>
-  </footer>
-  </body>
+  </div>
+</footer>
+</body>
+
 </html>
