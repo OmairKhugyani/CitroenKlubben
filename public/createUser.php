@@ -16,25 +16,26 @@ $inputList = [
 
 // Lokale klubber
 
-// Nordvestjysk
-// Midtjylland
-// Sydvestjysk
-// Djursland
-// Trekanten
-// Fyn
-// Citroënisterne – primært Nordsjælland og København
-// De Flyvende Citroner – øvrige Sjælland og Bornholm
-// Sydhavsøerne
+// 0 none
+// 1 Nordvestjysk
+// 2 Midtjylland
+// 3 Sydvestjysk
+// 4 Djursland
+// 5 rekanten
+// 6 Fyn
+// 7 Citroënisterne – primært Nordsjælland og København
+// 8 De Flyvende Citroner – øvrige Sjælland og Bornholm
+// 9 Sydhavsøerne
 
 
 // Modelrelaterede klubber
 
-// CX-club
-// HY-TEAM
-// MEHARI-gruppen
-// Berlingo /C1
-// Club Citroën C6 Danmark
-// Dansk Citroën SM Klub
+// 10 CX-club
+// 11 HY-TEAM
+// 12 MEHARI-gruppen
+// 13 Berlingo /C1
+// 14 Club Citroën C6 Danmark
+// 15 Dansk Citroën SM Klub
 ?>
 <div class="container container-lg box-bg-gradient">
   <a class="btn-small" href="mainMenu.php"><svg class="svg-door"></svg>Tilbage</a>
