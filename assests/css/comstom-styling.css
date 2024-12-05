@@ -526,6 +526,12 @@ input:focus-visible::placeholder {
 
 /* grenaral perpuse */
 
+.text-small {
+  font-size: .5rem;
+  color: var(--text-gray);
+  font-style: italic;
+}
+
 .flex-direction-column {
   flex-direction: column !important;
 }

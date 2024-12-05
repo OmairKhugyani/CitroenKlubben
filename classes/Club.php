@@ -1,6 +1,29 @@
 <?php
 
-class Club {
+// Lokale klubber
+
+// Nordvestjysk
+// Midtjylland
+// Sydvestjysk
+// Djursland
+// Trekanten
+// Fyn
+// Citroënisterne – primært Nordsjælland og København
+// De Flyvende Citroner – øvrige Sjælland og Bornholm
+// Sydhavsøerne
+
+
+// Modelrelaterede klubber
+
+// CX-club
+// HY-TEAM
+// MEHARI-gruppen
+// Berlingo /C1
+// Club Citroën C6 Danmark
+// Dansk Citroën SM Klub
+
+class Club
+{
     private $db;
 
     // Attributes for the Club class
@@ -10,28 +33,32 @@ class Club {
     public $abbreviation;
 
     // Constructor to initialize the database
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
     // Create a new club
-    public function createClub($data) {
+    public function createClub($data)
+    {
         $sql = "INSERT INTO Club (ClubName, MembershipFee, Abbreviation)
         VALUES (:clubName, :membershipFee, :abbreviation)";
-        
+
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($data);
     }
 
     // Retrieve all clubs
-    public function getAllClubs() {
+    public function getAllClubs()
+    {
         $sql = "SELECT * FROM Club";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Retrieve a club by ID
-    public function getClubById($clubID) {
+    public function getClubById($clubID)
+    {
         $sql = "SELECT * FROM Club WHERE ClubID = :clubID";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':clubID' => $clubID]);
@@ -39,7 +66,8 @@ class Club {
     }
 
     // Update a club
-    public function updateClub($data) {
+    public function updateClub($data)
+    {
         $sql = "UPDATE Club SET
             ClubName = :clubName,
             MembershipFee = :membershipFee,
@@ -51,7 +79,8 @@ class Club {
     }
 
     // Delete a club
-    public function deleteClub($clubID) {
+    public function deleteClub($clubID)
+    {
         $sql = "DELETE FROM Club WHERE ClubID = :clubID";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':clubID' => $clubID]);

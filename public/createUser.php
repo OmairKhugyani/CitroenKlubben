@@ -14,7 +14,27 @@ $inputList = [
   ["phone", "Telefonnummer", "tel"]
 ];
 
+// Lokale klubber
 
+// Nordvestjysk
+// Midtjylland
+// Sydvestjysk
+// Djursland
+// Trekanten
+// Fyn
+// Citroënisterne – primært Nordsjælland og København
+// De Flyvende Citroner – øvrige Sjælland og Bornholm
+// Sydhavsøerne
+
+
+// Modelrelaterede klubber
+
+// CX-club
+// HY-TEAM
+// MEHARI-gruppen
+// Berlingo /C1
+// Club Citroën C6 Danmark
+// Dansk Citroën SM Klub
 ?>
 <div class="container container-lg box-bg-gradient">
   <a class="btn-small" href="mainMenu.php"><svg class="svg-door"></svg>Tilbage</a>
@@ -28,13 +48,32 @@ $inputList = [
         <div class="select-wrapper">
           <select name="klub" id="klub" required>
             <option value="" selected disabled hidden>Vælg en klub</option>
-            <optgroup label="Midt Jylland">
-              <option value="1">Citroen</option>
-              <option value="2">VW</option>
+            <optgroup class="h5" label="Lokale klubber">
+            <optgroup label="Jylland">
+              <option value="1">Nordvestjysk</option>
+              <option value="2">Midtjylland</option>
+              <option value="3">Sydvestjysk</option>
+              <option value="4">Djursland</option>
+              <option value="5">Trekanten</option>
+              <option value="7">Citroënisterne <span class="text-small">- primært Nordsjælland og København</span></option>
             </optgroup>
-            <optgroup label="Fyn">
-              <option value="3">Volvo</option>
-              <option value="4">GM</option>
+            <optgroup label="Sjæland">
+              <option value="8">De Flyvende Citroner <span class="text-small">- øvrige Sjælland og Bornholm</span></option>
+              <option value="7">Citroënisterne <span class="text-small">- primært Nordsjælland og København</span></option>
+            </optgroup>
+            <optgroup label="Øvrige Danmark">
+              <option value="6">Fyn</option>
+              <option value="8">De Flyvende Citroner <span class="text-small">- øvrige Sjælland og Bornholm</span></option>
+              <option value="9">Sydhavsøerne</option>
+            </optgroup>
+            </optgroup>
+            <optgroup class="h5" label="Model klubber">
+              <option value="10">CX-club</option>
+              <option value="11">HY-TEAM</option>
+              <option value="12">MEHARI-gruppen</option>
+              <option value="13">Berlingo /C1</option>
+              <option value="14">Club Citroën C6 Danmark</option>
+              <option value="15">Dansk Citroën SM Klub</option>
             </optgroup>
           </select>
         </div>
