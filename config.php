@@ -5,4 +5,3 @@ try {
 } catch (PDOException $e) {
     die("Fejl ved forbindelse til databasen: " . $e->getMessage());
 }
-?>
