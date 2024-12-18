@@ -303,6 +303,14 @@ footer>div {
   border: var(--red) 2px solid;
 }
 
+/* tag to change regular button on hover */
+/* has no no-hover style */
+.btn-white-bluehover:hover {
+  color: white;
+  background: var(--blue-dark);
+  border: var(--blue) 2px solid;
+}
+
 /* form, label & form-helpers */
 
 .box-input-container {

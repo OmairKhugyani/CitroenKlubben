@@ -6,17 +6,17 @@ include("header.php");
   <div class="box-content-padding ">
     <form action="none" type="submit">
       <div class="box-input-container ">
-        <label for="">navn</label>
-        <input type="text" placeholder="nevn">
+        <label for="">Navn</label>
+        <input type="text" placeholder="abc">
       </div>
       <div class="box-input-container ">
-        <label for="">navn</label>
-        <input type="text" placeholder="nevn">
+        <label for="">Navn</label>
+        <input type="text" placeholder="abc">
       </div>
       <div class="box-input-container ">
         <input type="submit" class="margin-x-auto">
       </div>
-      <a href="mainMenu.php">main menu</a>
+      <a href="mainMenu.php">Main menu</a>
     </form>
   </div>
 </div>
