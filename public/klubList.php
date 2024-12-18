@@ -70,8 +70,8 @@ $memberList = [
   <h1>Medlems liste</h1>
   <div class="infobar-container">
     <div>
-      <h6>klub</h6>
-      <h3>lillebil</h3>
+      <h6>Klub</h6>
+      <h3>Lillebil</h3>
     </div>
     <div>
       <h6>Antal medlemmer</h6>

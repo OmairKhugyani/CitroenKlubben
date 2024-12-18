@@ -6,10 +6,10 @@ require 'classes/Member.php';
 session_start();
 
 // Kontroller, om brugeren er logget ind
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php'); // Omdiriger til login, hvis ikke logget ind
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     header('Location: login.php'); // Omdiriger til login, hvis ikke logget ind
+//     exit();
+// }
 
 // Instans af Member-klassen med databaseforbindelse
 $member = new Member($db);
@@ -33,7 +33,7 @@ $members = $member->getAllMembers();
     <?php if (!empty($members)): ?>
         <ul>
             <?php foreach ($members as $member): ?>
-                <li><?php echo htmlspecialchars($member['firstName'] . ' ' . $member['lastName']); ?></li>
+                <li><?php echo htmlspecialchars($member['FirstName'] . ' ' . $member['LastName']); ?></li>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>

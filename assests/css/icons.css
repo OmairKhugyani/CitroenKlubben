@@ -31,6 +31,14 @@
   margin-right: 5px;
 }
 
+.svg-user-edit {
+  background: url(../icons/user-edit.svg) no-repeat top left;
+  background-size: contain;
+  width: 30px;
+  aspect-ratio: 1 / 1;
+  margin-right: 5px;
+}
+
 .svg-user-remove {
   background: url(../icons/user-remove.svg) no-repeat top left;
   background-size: contain;

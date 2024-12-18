@@ -38,12 +38,14 @@ if (!isset($_SESSION) || $_SESSION["LogIn"] !== true) {
       <h3 class="margin-bottom-0">Medlemshåndtering</h3>
     </div>
     <div class="container_space-around margin-bottom-1">
-      <a class="link-remove btn btn-white-greenhover" href="createUser.php"><svg class="svg-user-add"></svg>Add medlem</a>
-      <a class="link-remove btn btn-white-redhover" href="deleteUser.php"><svg class="svg-user-remove"></svg>Fjen medlem</a>
-    </div>
+    <a class="link-remove btn btn-white-greenhover" href="createUser.php"><svg class="svg-user-add"></svg>Tilføj medlem</a>
+    <a class="link-remove btn btn-white-bluehover" href="editUser.php"><svg class="svg-user-edit"></svg>Rediger medlem</a>
+    <a class="link-remove btn btn-white-redhover" href="deleteUser.php"><svg class="svg-user-remove"></svg>Fjern medlem</a>
+</div>
+
 
     <div class="box-center">
-      <h3 class="margin-bottom-0">data udtræk</h3>
+      <h3 class="margin-bottom-0">Data udtræk</h3>
     </div>
     <div class="container_space-around margin-bottom-1">
       <a class="link-remove btn"><svg class="svg-doc"></svg>Udtræk klub data</a>

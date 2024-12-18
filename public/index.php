@@ -22,7 +22,7 @@ $members = $member->getAllMembers();
       <div class="box-input-container ">
         <input type="submit" name="login" class="btn-login margin-x-auto">
       </div>
-      <a href="mainMenu.php">main menu</a>
+      <a href="mainMenu.php">Main menu</a>
     </form>
   </div>
 </div>
