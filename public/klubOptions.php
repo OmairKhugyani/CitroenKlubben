@@ -1,10 +1,13 @@
 <?php
-// require '../config.php';
-// require '../classes/Club.php';
+require '../config.php';
+require '../classes/Club.php';
 
-// $club = new Club($db);
+$club = new Club($db);
+$clubs = $club->getAllClubs();
 
-// $clubs = $club->getAllClubs();
+echo '<pre>';
+print_r($clubs);
+echo '</pre>';
 ?>
 
 <option value="" selected disabled hidden>Vælg en klub</option>

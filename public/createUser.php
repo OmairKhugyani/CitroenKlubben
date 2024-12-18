@@ -1,5 +1,11 @@
 <?php
 include("header.php");
+require '../config.php';
+require '../classes/Club.php';
+
+$club = new Club($db);
+$clubs = $club->getAllClubs();
+
 
 #include("./classes/Member.php");
 $inputList = [
@@ -43,12 +49,19 @@ $inputList = [
   <div class="infobar-container">
   </div>
   <main class="box-content-padding box-center flex">
-    <form action="form.php" method="post" id="medlem" class="container flex-direction-column">
+    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="medlem" class="container flex-direction-column">
       <div class="box-input-container">
         <label for="klub">Klub</label>
         <div class="select-wrapper">
           <select name="klub" id="klub" required>
-            <?php include("klubOptions.php") ?>
+            <option value="Null" selected disabled hidden>Vælg en klub</option>
+            <?php
+            foreach ($clubs as $clubItem) {
+            ?>
+              <option><?= $clubItem["ClubName"] ?></option>
+            <?php
+            }
+            ?>
           </select>
         </div>
       </div>
@@ -68,4 +81,6 @@ $inputList = [
 
 <?php
 include("footer.php");
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+
 ?>

@@ -29,9 +29,9 @@ class Club
 
     // Attributes for the Club class
     public $clubID;
-    public $clubName;
-    public $membershipFee;
-    public $abbreviation;
+    public string $clubName;
+    public float $membershipFee;
+    public string $abbreviation;
 
     // Constructor to initialize the database
     public function __construct($db)
@@ -85,5 +85,12 @@ class Club
         $sql = "DELETE FROM Club WHERE ClubID = :clubID";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':clubID' => $clubID]);
+    }
+
+
+    // data getters
+    public function getName(): string
+    {
+        return $this::$clubName;
     }
 }

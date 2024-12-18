@@ -1,13 +1,23 @@
 <?php
-include("header.php");
+session_start();
+include_once("header.php");
+
+if (!isset($_SESSION) || $_SESSION["LogIn"] !== true) {
+  session_destroy();
+  header('Location: index.php');
+  exit;
+}
+
 ?>
 <div class="container container-lg box-bg-gradient">
-  <a class="btn-small" href="index.php"><svg class="svg-door"></svg>Log af</a>
+  <form action="mainMenu.php" method="post">
+    <button type="submit" class="btn-small" name="LogOut"><svg class="svg-door"></svg>Log af</button>
+  </form>
   <h1>Hovedmenu</h1>
   <div class="infobar-container">
     <div>
       <h6>Bruger</h6>
-      <h3>MID0234</h3>
+      <h3><?= $_SESSION["username"] ?></h3>
     </div>
     <div>
       <h6>Rettigheder</h6>
@@ -42,4 +52,9 @@ include("header.php");
 </div>
 <?php
 include("footer.php");
+
+if (isset($_POST["LogOut"])) {
+  session_destroy();
+  header("Location: index.php");
+}
 ?>
