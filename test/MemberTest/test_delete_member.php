@@ -6,18 +6,19 @@ error_reporting(E_ALL);
 
 // Indlæs databasekonfiguration og Member-klassen
 require '../../config.php';
-require '../../classes/Member.php';
+require '../../models/Member.php';
 
 // Opret en ny instans af Member-klassen
 $member = new Member($db);
 
 // ID'et på det medlem, der skal slettes
-$memberID = 1; // Erstat med et faktisk ID, som findes i databasen
+$memberID = 2; // Erstat med et faktisk ID, som findes i databasen
 
 // Slet medlemmet
-if ($member->deleteMember($memberID)) {
+try {
+    $member->deleteMember($memberID);
     echo "Medlem slettet succesfuldt!\n";
-} else {
+} catch (Exception $ex) {
     echo "Fejl ved sletning af medlem.\n";
+    echo $ex;
 }
-?>

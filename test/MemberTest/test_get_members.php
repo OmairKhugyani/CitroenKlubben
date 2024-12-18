@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 // Indlæs databasekonfiguration og Member-klassen
 require '../../config.php';
-require '../../classes/Member.php';
+require '../../models/Member.php';
 
 // Opret en ny instans af Member-klassen
 $member = new Member($db);
@@ -17,7 +17,7 @@ $members = $member->getAllMembers();
 // Kontroller, om der er medlemmer i databasen
 if (!empty($members)) {
     echo "Medlemmer fundet:\n"; // Udskriv en succesmeddelelse
-    
+
     // Loop gennem hver række i resultatet og udskriv detaljer om medlemmer
     foreach ($members as $m) {
         echo $m['LocalMemberID'] . " - " . $m['FirstName'] . " " . $m['LastName'] . "\n";
@@ -26,4 +26,3 @@ if (!empty($members)) {
     // Hvis der ikke findes medlemmer, udskriv en besked
     echo "Ingen medlemmer fundet.\n";
 }
-?>

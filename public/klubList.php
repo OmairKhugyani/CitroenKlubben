@@ -1,7 +1,12 @@
 <?php
+session_start();
 include("header.php");
+require("../config.php");
+require("../models/Member.php");
 
-#include("./classes/Member.php");
+$members = new Member($db);
+$AllMembers = $members->getAllMembers();
+
 $tableHeaders = [
   "Medlems Nr.",
   "Navn",
@@ -11,59 +16,8 @@ $tableHeaders = [
   "Post Nr.",
   "By",
 ];
-$member = [
-  "id" => 12,
-  "name" => "tom",
-  "lastname" => "hansen",
-  "address" => "lillevangsvej 2, 2mf",
-  "address2" => "",
-  "postnumber" => 2323,
-  "city" => "København",
-  // $email = "tom@mail.com";
-  // $phone = 232323;
-];
-$memberList = [
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-]
 ?>
+
 
 <div class="container container-xl box-bg-gradient">
   <a class="btn-small" href="mainMenu.php"><svg class="svg-door"></svg>Tilbage</a>
@@ -75,7 +29,7 @@ $memberList = [
     </div>
     <div>
       <h6>Antal medlemmer</h6>
-      <h3><?= count($memberList) ?></h3>
+      <h3><?= count($AllMembers) ?></h3>
     </div>
   </div>
   <main class="box-content-padding box-center flex">
@@ -86,15 +40,15 @@ $memberList = [
         <?php } ?>
       </div>
       <div>
-        <?php foreach ($memberList as $item) { ?>
+        <?php foreach ($AllMembers as $item) { ?>
           <div class="table-row">
-            <p><?= $item["id"] ?></p>
-            <p><?= $item["name"] ?></p>
-            <p><?= $item["lastname"] ?></p>
-            <p><?= $item["address"] ?></p>
-            <p><?= $item["address2"] ?></p>
-            <p><?= $item["postnumber"] ?></p>
-            <p><?= $item["city"] ?></p>
+            <p><?= $item["LocalMemberID"] ?></p>
+            <p><?= $item["FirstName"] ?></p>
+            <p><?= $item["LastName"] ?></p>
+            <p><?= $item["Address1"] ?></p>
+            <p><?= $item["Address2"] ?></p>
+            <p><?= $item["PostalCode"] ?></p>
+            <p><?= $item["City"] ?></p>
           </div>
         <?php } ?>
       </div>

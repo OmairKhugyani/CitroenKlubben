@@ -2,11 +2,13 @@
 session_start();
 include_once("header.php");
 
-if (!isset($_SESSION) || $_SESSION["LogIn"] !== true) {
-  session_destroy();
-  header('Location: index.php');
-  exit;
-}
+$_SESSION["username"] = "MID023";
+$_SESSION["role"] = "admin";
+// if (!isset($_SESSION) || $_SESSION["LogIn"] !== true) {
+//   session_destroy();
+//   header('Location: index.php');
+//   exit;
+// }
 
 ?>
 <div class="container container-lg box-bg-gradient">
@@ -21,7 +23,10 @@ if (!isset($_SESSION) || $_SESSION["LogIn"] !== true) {
     </div>
     <div>
       <h6>Rettigheder</h6>
-      <h3>Klubadmin</h3>
+      <h3><?= $_SESSION["role"] ?></h3>
+    </div>
+    <div class="width-100 container">
+      <a class="link-remove btn btn-gray" href="editUser.php"><svg class="svg-user-edit"></svg>Rediger bruger</a>
     </div>
   </div>
   <main class="box-content-padding">
@@ -29,26 +34,25 @@ if (!isset($_SESSION) || $_SESSION["LogIn"] !== true) {
     <div class="box-center">
       <h3 class="margin-bottom-0">Se medlemmer</h3>
     </div>
-    <div class="container_space-around margin-bottom-1">
-      <a class="link-remove btn" href="klubList.php"><svg class="svg-user"></svg>Egen klub</a>
-      <a class="link-remove btn" href="klubList.php"><svg class="svg-user-more"></svg>Alle klubber</a>
+    <div class="small-row container_space-around margin-bottom-1 max-with-800">
+      <a class="link-remove btn margin-x-auto" href="klubList.php"><svg class="svg-user"></svg>Egen klub</a>
+      <a class="link-remove btn margin-x-auto" href="klubList.php"><svg class="svg-user-more"></svg>Alle klubber</a>
     </div>
 
     <div class="box-center">
       <h3 class="margin-bottom-0">Medlemshåndtering</h3>
     </div>
-    <div class="container_space-around margin-bottom-1">
-    <a class="link-remove btn btn-white-greenhover" href="createUser.php"><svg class="svg-user-add"></svg>Tilføj medlem</a>
-    <a class="link-remove btn btn-white-bluehover" href="editUser.php"><svg class="svg-user-edit"></svg>Rediger medlem</a>
-    <a class="link-remove btn btn-white-redhover" href="deleteUser.php"><svg class="svg-user-remove"></svg>Fjern medlem</a>
-</div>
+    <div class="small-row max-with-800 container_space-around margin-bottom-1">
+      <a class="link-remove btn btn-white-greenhover margin-x-auto" href="createUser.php"><svg class="svg-user-add"></svg>Tilføj medlem</a>
+      <a class="link-remove btn btn-white-redhover margin-x-auto" href="deleteUser.php"><svg class="svg-user-remove"></svg>Fjern medlem</a>
+    </div>
 
 
     <div class="box-center">
       <h3 class="margin-bottom-0">Data udtræk</h3>
     </div>
     <div class="container_space-around margin-bottom-1">
-      <a class="link-remove btn"><svg class="svg-doc"></svg>Udtræk klub data</a>
+      <a class="link-remove btn margin-x-auto"><svg class="svg-doc"></svg>Udtræk klub data</a>
     </div>
   </main>
 </div>

@@ -1,8 +1,56 @@
 <?php
 session_start();
 include("header.php");
+require '../models/Member.php';
+require_once '../config.php';
 
-require_once("./config.php");
+if (isset($_SESSION["Loggedin"]) && $_SESSION["Loggedin"] === true) {
+  header("location: mainMenu.php");
+  exit;
+}
+
+$DBResult = $userid = $password = "";
+$userid_err = $password_err = $login_err = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty(trim($_POST["userid"]))) {
+    $userid_err = "mangler bruger ID";
+  } else {
+    $userid = trim($_POST["userid"]);
+  }
+
+  if (empty(trim($_POST["password"]))) {
+    $password_err = "mangler kode ord";
+  } else {
+    $password = trim($_POST["password"]);
+  }
+
+  // if and try blocks to catch both Exception err and empty value err
+  try {
+    $DBResult = $members->getMemberByLocalMemberId($userid);
+  } catch (Exception $ex) {
+    $login_err = "kunne ikke finde bruger id";
+    exit;
+  }
+  if (empty($DBResult)) {
+    $login_err = "kunne ikke finde bruger id";
+    exit;
+  }
+
+  // use in the furture
+  //? if (password_verify($password, $DBResult["PassWord"]))
+  if ($DBResult["PassWord"] == $password) {
+    // if password currect starts new session with user data
+    session_start();
+    $_SESSION["loggedin"] = true;
+    $_SESSION["id"] = $DBResult["MemberID"];
+    $_SESSION["LocalID"] = $DBResult["LocalMemberID"];
+    $_SESSION["useraName"] = $DBResult["FirstName"] + " " + $DBResult["LastName"];
+    $_SESSION["LocalAdmin"] = $DBResult["RegionAdmin"];
+    $_SESSION["Admin"] = $DBResult["Admin"];
+    //? $_SESSION["MemberRole"] = find merber role by id, if 1+ find roller  
+  }
+}
 
 $member = new Member($db);
 $members = $member->getAllMembers();

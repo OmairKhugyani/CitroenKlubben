@@ -19,4 +19,3 @@ if ($clubRelation->createClubRelation($data)) {
 } else {
     echo "Failed to create club relation.\n";
 }
-?>

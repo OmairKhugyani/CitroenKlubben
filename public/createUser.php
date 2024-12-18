@@ -1,47 +1,33 @@
 <?php
 include("header.php");
 require '../config.php';
-require '../classes/Club.php';
+require '../models/Club.php';
+require '../models/Member.php';
+require '../models/ClubRelation.php';
+
+session_start();
 
 $club = new Club($db);
 $clubs = $club->getAllClubs();
 
+$clubRelation = new ClubRelation($db);
 
-#include("./classes/Member.php");
-$inputList = [
-  ["localMemberID", "Løbenummer", "text"],
-  ["firstName", "Fornavn", "text"],
-  ["lastName", "Efternavn", "text"],
-  ["address1", "Adresse", "text"],
-  ["address2", "2. Adresse", "text"],
-  ["postalCode", "Post nr.", "number"],
-  ["city", "By", "text"],
-  ["mail", "Mail", "email"],
-  ["phone", "Telefonnummer", "tel"]
-];
+$member = new Member($db);
 
-// Lokale klubber
+$data_text_type = [
+  //[ name & id & for, label & placeholder, type ]
+  ['localMemberID', 'Lokal klub ID', 'text'],
+  ['firstName', 'Fornavn', 'text'],
+  ['lastName', 'Efternavn', 'text'],
+  ['email', 'Mail', 'email'],
+  ['membershipPaidUntil', 'Medlemsskabs slut dato', 'date'],
+  ['youthMembership', 'Ungdoms medlemsskab', 'checkbox'],
+  ['youthMembershipYear', 'Ungdoms medlemsskab frast', 'date'],
+  ['regionAdmin', 'Klub admin', 'checkbox'],
+  ['admin', 'Admin', 'checkbox'],
+  ['password', 'Midlertidigt kode ord', 'password'],
+]
 
-// 0 none
-// 1 Nordvestjysk
-// 2 Midtjylland
-// 3 Sydvestjysk
-// 4 Djursland
-// 5 rekanten
-// 6 Fyn
-// 7 Citroënisterne – primært Nordsjælland og København
-// 8 De Flyvende Citroner – øvrige Sjælland og Bornholm
-// 9 Sydhavsøerne
-
-
-// Modelrelaterede klubber
-
-// 10 CX-club
-// 11 HY-TEAM
-// 12 MEHARI-gruppen
-// 13 Berlingo /C1
-// 14 Club Citroën C6 Danmark
-// 15 Dansk Citroën SM Klub
 ?>
 <div class="container container-lg box-bg-gradient">
   <a class="btn-small" href="mainMenu.php"><svg class="svg-door"></svg>Tilbage</a>
@@ -53,12 +39,12 @@ $inputList = [
       <div class="box-input-container">
         <label for="klub">Klub</label>
         <div class="select-wrapper">
-          <select name="klub" id="klub" required>
+          <select name="club" id="klub" required>
             <option value="Null" selected disabled hidden>Vælg en klub</option>
             <?php
             foreach ($clubs as $clubItem) {
             ?>
-              <option><?= $clubItem["ClubName"] ?></option>
+              <option value="<?= $clubItem["ClubID"] ?>"><?= $clubItem["ClubName"] ?></option>
             <?php
             }
             ?>
@@ -66,14 +52,25 @@ $inputList = [
         </div>
       </div>
       <?php
-      foreach ($inputList as $item) { ?>
+      for ($input_feild = 0; $input_feild <= count($data_text_type) - 1; $input_feild++) { ?>
         <div class="box-input-container">
-          <label for="<?= $item[0] ?>"><?= $item[1] ?></label>
-          <input type="<?= $item[2] ?>" name="<?= $item[0] ?>" id="<?= $item[0] ?>" placeholder="<?= $item[1] ?>" required>
+          <?php if ($data_text_type[$input_feild][2] == "checkbox") { ?>
+            <!-- checkbox use defriens layout -->
+            <label class="checkbox_container" for="<?= $data_text_type[$input_feild][0] ?>">
+              <?= $data_text_type[$input_feild][1] ?>
+              <input type="checkbox" name="<?= $data_text_type[$input_feild][0] ?>" id="<?= $data_text_type[$input_feild][0] ?>">
+              <span class="checkmark"></span>
+            </label>
+          <?php } else { ?>
+            <label for="<?= $data_text_type[$input_feild][0] ?>"><?= $data_text_type[$input_feild][1] ?></label>
+            <input type="<?= $data_text_type[$input_feild][2] ?>" id="<?= $data_text_type[$input_feild][0] ?>" name="<?= $data_text_type[$input_feild][0] ?>" placeholder="<?= $data_text_type[$input_feild][1] ?>" <?= $data_text_type[$input_feild][0] == 'youthMembershipYear' ? '' : 'required'; ?>>
+          <?php } ?>
         </div>
-      <?php } ?>
+      <?php
+      }
+      ?>
       <div class="box-input-container box-center">
-        <button class="btn-white-greenhover" type="submit">Opret medlem</button>
+        <button class="btn-white-greenhover" name="CreateUser" type="submit">Opret medlem</button>
       </div>
     </form>
   </main>
@@ -81,6 +78,42 @@ $inputList = [
 
 <?php
 include("footer.php");
-if ($_SERVER["REQUEST_METHOD"] == "POST")
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  $data = [
+    'localMemberID'          => $_POST["localMemberID"],
+    'firstName'              => $_POST["firstName"],
+    'lastName'               => $_POST["lastName"],
+    'address1'               => null,
+    'address2'               => null,
+    'postalCode'             => null,
+    'city'                   => null,
+    'phone'                  => null,
+    'email'                  => 'test@example.com',
+    'directDebitAgreement'   => 0,
+    'membershipPaidUntil'    => $_POST["membershipPaidUntil"],
+    'youthMembership'        => isset($_POST["youthMembership"]) ? true : 0,
+    'youthMembershipYear'    => $_POST["youthMembershipYear"],
+    'apua'                   => null,
+    'regionAdmin'            => isset($_POST["regionAdmin"]) ? true : 0,
+    'admin'                  => isset($_POST["Admin"]) ? true : 0,
+    'allowRegion'            => 0,
+    'allowAll'               => 0,
+    'passWord'               => $_POST["password"],
+    'passWordChanged'        => 0,
+  ];
+
+  try {
+    $newUser = $member->createMember($data);
+    print_r($newUser);
+    $clubRelation->createClubRelation(['memberID' => $newUser["memberID"], 'clubID' => $_POST["club"]]);
+    $userdata = $newUser["memberID"] + ": " +  $newUser["localMemberID"] + " " + $newUser["fistName"];
+    echo "<script>alert({'$userdata'})</script>";
+  } catch (Exception $ex) {
+    echo "<script>console.log({'$ex'})</script>";
+    echo "<script>alert('kunne ikke oprette bruger')</script>";
+    exit;
+  }
+}
 
 ?>
