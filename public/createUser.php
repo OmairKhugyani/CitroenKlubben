@@ -16,7 +16,7 @@ $member = new Member($db);
 
 $data_text_type = [
   //[ name & id & for, label & placeholder, type ]
-  ['localMemberID', 'Lokal klub ID', 'text'],
+  // ['localMemberID', 'Lokal klub ID', 'text'],
   ['firstName', 'Fornavn', 'text'],
   ['lastName', 'Efternavn', 'text'],
   ['email', 'Mail', 'email'],
@@ -80,8 +80,9 @@ $data_text_type = [
 include("footer.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $data = [
-    'localMemberID'          => $_POST["localMemberID"],
+  $clubMemberCount = count($clubRelation->getClubRelationsByClub($_POST["club"]));
+  $data = [                     // Makes local MemberID: club Abbreviation + (number of members in club + 1)
+    'localMemberID'          => "{$clubs[$_POST["club"]]["Abbreviation"]}" . strval(str_pad($clubMemberCount + 1, 3, 0, STR_PAD_LEFT)),
     'firstName'              => $_POST["firstName"],
     'lastName'               => $_POST["lastName"],
     'address1'               => null,
@@ -89,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     'postalCode'             => null,
     'city'                   => null,
     'phone'                  => null,
-    'email'                  => 'test@example.com',
+    'email'                  => $_POST["email"],
     'directDebitAgreement'   => 0,
     'membershipPaidUntil'    => $_POST["membershipPaidUntil"],
     'youthMembership'        => isset($_POST["youthMembership"]) ? true : 0,
@@ -99,21 +100,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     'admin'                  => isset($_POST["Admin"]) ? true : 0,
     'allowRegion'            => 0,
     'allowAll'               => 0,
-    'passWord'               => $_POST["password"],
+    'passWord'               => password_hash($_POST["password"], PASSWORD_DEFAULT),
     'passWordChanged'        => 0,
   ];
 
   try {
     $newUser = $member->createMember($data);
-    print_r($newUser);
-    $clubRelation->createClubRelation(['memberID' => $newUser["memberID"], 'clubID' => $_POST["club"]]);
-    $userdata = $newUser["memberID"] + ": " +  $newUser["localMemberID"] + " " + $newUser["fistName"];
-    echo "<script>alert({'$userdata'})</script>";
+    $clubRelation->createClubRelation(['memberID' => $newUser["MemberID"], 'clubID' => $_POST["club"]]);
+    $userdata = "#{$newUser["MemberID"]}: {$newUser["LocalMemberID"]} - {$newUser["FirstName"]}";
+    echo "<script>console.log({'$userdata'}); alert({'$userdata'});</script>";
   } catch (Exception $ex) {
     echo "<script>console.log({'$ex'})</script>";
     echo "<script>alert('kunne ikke oprette bruger')</script>";
     exit;
   }
 }
-
 ?>

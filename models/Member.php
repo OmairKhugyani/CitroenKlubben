@@ -56,7 +56,7 @@ class Member
             $newMemberId = $this->db->lastInsertId();
 
             // Hent og returner den nyoprettede bruger
-            $query = "SELECT * FROM Member WHERE member1ID = :id";
+            $query = "SELECT * FROM Member WHERE MemberID = :id";
             $stmt = $this->db->prepare($query);
             $stmt->execute(['id' => $newMemberId]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
