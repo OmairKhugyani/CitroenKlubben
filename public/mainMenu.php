@@ -1,14 +1,12 @@
 <?php
-session_start();
 include_once("header.php");
+session_start();
 
-$_SESSION["username"] = "MID023";
-$_SESSION["role"] = "admin";
-// if (!isset($_SESSION) || $_SESSION["LogIn"] !== true) {
-//   session_destroy();
-//   header('Location: index.php');
-//   exit;
-// }
+if (!isset($_SESSION["localID"])) {
+  session_destroy();
+  header('Location: index.php');
+  exit;
+}
 
 ?>
 <div class="container container-lg box-bg-gradient">
@@ -19,11 +17,11 @@ $_SESSION["role"] = "admin";
   <div class="infobar-container">
     <div>
       <h6>Bruger</h6>
-      <h3><?= $_SESSION["username"] ?></h3>
+      <h3><?= $_SESSION["localID"] ?></h3>
     </div>
     <div>
       <h6>Rettigheder</h6>
-      <h3><?= $_SESSION["role"] ?></h3>
+      <h3><?= $_SESSION["MemberRole"] ?></h3>
     </div>
     <div class="width-100 container">
       <a class="link-remove btn btn-gray" href="editUser.php"><svg class="svg-user-edit"></svg>Rediger bruger</a>

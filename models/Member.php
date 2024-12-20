@@ -32,17 +32,6 @@ class Member
         $this->db = $db;
     }
 
-    // // Create a new member
-    // public function createMember($data)
-    // {
-    //     $sql = "INSERT INTO Member (LocalMemberID, FirstName, LastName, Address1, Address2, PostalCode, City, Phone, Email, DirectDebitAgreement, MembershipPaidUntil, YouthMembership, YouthMembershipYear, Apua, RegionAdmin, Admin, AllowRegion, AllowAll, PassWord, PassWordChanged)
-    //     VALUES (:localMemberID, :firstName, :lastName, :address1, :address2, :postalCode, :city, :phone, :email, :directDebitAgreement, :membershipPaidUntil, :youthMembership, :youthMembershipYear, :apua, :regionAdmin, :admin, :allowRegion, :allowAll, :passWord, :passWordChanged)";
-
-    //     $stmt = $this->db->prepare($sql);
-    //     return $stmt->execute($data);
-    // }
-
-    // Create a new member
     public function createMember($data)
     {
         $sql = "INSERT INTO Member (LocalMemberID, FirstName, LastName, Address1, Address2, PostalCode, City, Phone, Email, DirectDebitAgreement, MembershipPaidUntil, YouthMembership, YouthMembershipYear, Apua, RegionAdmin, Admin, AllowRegion, AllowAll, PassWord, PassWordChanged)
@@ -82,7 +71,7 @@ class Member
     }
 
     // Retrieve a member by club, used for list
-    public function getMembersByClub($LocalID)
+    public function getMemberByLocalClubID($LocalID)
     {
         $sql = "SELECT * FROM Member WHERE LocalMemberID = :LocalID";
         $stmt = $this->db->prepare($sql);
