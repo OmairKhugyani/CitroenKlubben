@@ -37,14 +37,16 @@ if (!isset($_SESSION["localID"])) {
       <a class="link-remove btn margin-x-auto" href="klubList.php"><svg class="svg-user-more"></svg>Alle klubber</a>
     </div>
 
-    <div class="box-center">
-      <h3 class="margin-bottom-0">Medlemshåndtering</h3>
-    </div>
-    <div class="small-row max-with-800 container_space-around margin-bottom-1">
-      <a class="link-remove btn btn-white-greenhover margin-x-auto" href="createUser.php"><svg class="svg-user-add"></svg>Tilføj medlem</a>
-      <a class="link-remove btn btn-white-redhover margin-x-auto" href="deleteUser.php"><svg class="svg-user-remove"></svg>Fjern medlem</a>
-    </div>
-
+    <?php
+    if ($_SESSION["admin"] || $_SESSION["regionAdmin"]) { ?>
+      <div class="box-center">
+        <h3 class="margin-bottom-0">Medlemshåndtering</h3>
+      </div>
+      <div class="small-row max-with-800 container_space-around margin-bottom-1">
+        <a class="link-remove btn btn-white-greenhover margin-x-auto" href="createUser.php"><svg class="svg-user-add"></svg>Tilføj medlem</a>
+        <a class="link-remove btn btn-white-redhover margin-x-auto" href="deleteUser.php"><svg class="svg-user-remove"></svg>Fjern medlem</a>
+      </div>
+    <?php } ?>
 
     <div class="box-center">
       <h3 class="margin-bottom-0">Data udtræk</h3>

@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $clubMemberCount = count($clubRelation->getClubRelationsByClub($_POST["club"]));
   $data = [                     // Makes local MemberID: club Abbreviation + (number of members in club + 1)
-    'localMemberID'          => "{$clubs[$_POST["club"]]["Abbreviation"]}" . strval(str_pad($clubMemberCount + 1, 3, 0, STR_PAD_LEFT)),
+    'localMemberID'          => "{$clubs[$_POST["club"] - 1]["Abbreviation"]}" . strval(str_pad($clubMemberCount + 1, 3, 0, STR_PAD_LEFT)),
     'firstName'              => $_POST["firstName"],
     'lastName'               => $_POST["lastName"],
     'address1'               => null,
