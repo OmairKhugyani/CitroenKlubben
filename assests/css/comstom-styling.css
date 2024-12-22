@@ -216,14 +216,12 @@ button:hover,
   border: 3px solid var(--green-dark)
 }
 
-footer {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
 
-footer>div {
-  width: clamp(min(100vw, 600px), 75%, 1340px);
+footer p {
+  position: absolute;
+  bottom: 3px;
+  left: 17px;
+  z-index: -5;
 }
 
 
