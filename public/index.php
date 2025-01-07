@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-  // use in the furture
+
   if (password_verify($password, $DBResult["PassWord"])) {
     // if password currect starts new session with user data
     session_start();

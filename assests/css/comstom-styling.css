@@ -14,6 +14,8 @@
     - buttons
     - links
     - form-input
+    - check box
+    - select
   - classes
     - container
     - btn 
@@ -59,7 +61,7 @@
   letter-spacing: 1px;
   color: #ffffff;
   font-size: var(--font-size);
-  font-weight: 300;
+  font-weight: var(--font-weight-normal);
   font-family: 'Noto Sans', sans-serif;
   font-optical-sizing: auto;
 }
@@ -151,6 +153,10 @@ a,
 button,
 input[type="submit"] {
   transition: cubic-bezier(0.165, 0.84, 0.44, 1) .4s all;
+  -webkit-transition: cubic-bezier(0.165, 0.84, 0.44, 1) .4s all;
+  -moz-transition: cubic-bezier(0.165, 0.84, 0.44, 1) .4s all;
+  -ms-transition: cubic-bezier(0.165, 0.84, 0.44, 1) .4s all;
+  -o-transition: cubic-bezier(0.165, 0.84, 0.44, 1) .4s all;
 }
 
 a {
@@ -195,6 +201,10 @@ button,
   outline: none;
   border: 2px solid var(--main-blue-dark);
   box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.150);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
 }
 
 button:hover,
@@ -275,6 +285,10 @@ footer p {
   position: relative;
   top: 0;
   left: -35%;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 .btn-small:hover {
@@ -284,23 +298,21 @@ footer p {
   translate: 0 -5px;
 }
 
-/* tag to change regular button on hover */
-/* has no no-hover style */
+/* tag to change regular button hover effect*/
 .btn-white-greenhover:hover {
   color: white;
   background: var(--green-dark);
   border: 2px solid var(--green);
 }
 
-/* tag to change regular button on hover */
-/* has no no-hover style */
+/* tag to change regular button hover effect*/
 .btn-white-redhover:hover {
   color: white;
   background: var(--red-dark);
   border: var(--red) 2px solid;
 }
 
-/* tag to change regular button on hover */
+/* tag to change regular button hover effect*/
 /* has no no-hover style */
 .btn-white-bluehover:hover {
   color: white;
@@ -331,6 +343,10 @@ footer p {
   box-shadow: 0px 10px 10px rgba(000, 000, 000, .25);
   border: 3px solid var(--yellow-dark);
   color: black;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
 
 .error-box {
@@ -340,6 +356,10 @@ footer p {
   width: clamp(200px, 100%, 300px);
   box-shadow: 0px 10px 10px rgba(000, 000, 000, .25);
   border: 3px solid var(--red-dark);
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
 
 .warning-box>p,
@@ -377,6 +397,11 @@ select {
   font-size: 1rem;
   filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.20));
   width: 100%;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  -webkit-filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.20));
 }
 
 input::placeholder,
@@ -384,6 +409,19 @@ select {
   font-size: 1rem;
   font-weight: var(--font-weight-normal);
   color: rgb(46, 46, 46);
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 1.2rem;
+  top: 25%;
+  right: 2%;
+  position: absolute;
+  color: var(--gray-dark);
 }
 
 /** //////////////////////////////////////////////////////////////////////////////// */
@@ -420,6 +458,10 @@ select {
   background-color: white;
   border-radius: 8px;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.150);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
 /* On mouse-over, add a grey background color */
@@ -453,9 +495,11 @@ select {
   height: 28px;
   border: solid white;
   border-width: 0 5px 5px 0;
+  transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
 }
 
 /** /////////////////////////////////////////////////////////////////////////////// */
@@ -545,6 +589,7 @@ input:focus-visible::placeholder {
 .box-bg-gradient {
   padding: .8rem;
   backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   background: linear-gradient(180deg, var(--main-blue-transparent) 0%, var(--main-blue-dark-transparent) 100%);
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.200);
 }
@@ -607,10 +652,15 @@ input:focus-visible::placeholder {
   background-color: rgba(185, 185, 185, 0.128);
   font-size: 1.1rem;
   display: grid;
-  /* grid-template-columns: 150px 150px 170px 200px 200px 75px 200px; min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(200px, 50vw) min(75px, 50vw) min(200px, 50vw)*/
+  /*grid-template-columns: 150px 150px 170px 200px 200px 75px 200px;
+  min(150px,50vw)min(150px,50vw)min(170px,50vw)min(200px,50vw)min(200px,50vw)min(75px,50vw)min(200px,50vw)*/
   grid-template-columns: min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(200px, 50vw) min(100px, 50vw) min(150px, 50vw);
   box-shadow: inset 0vw 0px 0px rgba(9, 42, 73, 0.4);
   transition: .4s cubic-bezier(0.5, 1.04, 0.19, 0.99);
+  -webkit-transition: .4s cubic-bezier(0.5, 1.04, 0.19, 0.99);
+  -moz-transition: .4s cubic-bezier(0.5, 1.04, 0.19, 0.99);
+  -ms-transition: .4s cubic-bezier(0.5, 1.04, 0.19, 0.99);
+  -o-transition: .4s cubic-bezier(0.5, 1.04, 0.19, 0.99);
 }
 
 .table-row:hover {
@@ -631,6 +681,10 @@ input:focus-visible::placeholder {
 .table-row:last-child {
   border-radius: 0 0 10px 10px;
   border-bottom: var(--gray-light) 1px solid;
+  -webkit-border-radius: 0 0 10px 10px;
+  -moz-border-radius: 0 0 10px 10px;
+  -ms-border-radius: 0 0 10px 10px;
+  -o-border-radius: 0 0 10px 10px;
 }
 
 .table-row>p:last-child {
@@ -638,19 +692,6 @@ input:focus-visible::placeholder {
   border-right: none;
 }
 
-
-.select-wrapper {
-  position: relative;
-}
-
-.select-wrapper::after {
-  content: "▼";
-  font-size: 1.2rem;
-  top: 25%;
-  right: 2%;
-  position: absolute;
-  color: var(--gray-dark);
-}
 
 /* grenaral perpuse */
 
@@ -753,6 +794,10 @@ input:focus-visible::placeholder {
 
   .box-bg-gradient {
     border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
   }
 
   .container {
