@@ -2,6 +2,11 @@
 require("header.php");
 require_once '../models/Member.php';
 require_once '../config.php';
+require '../models/Responsibilities.php';
+require '../models/MemberRoles.php';
+
+$memberRoles = new MemberRoles($db);
+$responsibilities = new Responsibilities($db);
 
 if (isset($_SESSION["Loggedin"]) && $_SESSION["Loggedin"] === true) {
   header("location: mainMenu.php");
@@ -69,6 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // if and try blocks to catch both Exception err and empty value err
   try {
     $DBResult = $member->getMemberByLocalClubID($userid);
+    $DBmemberole = $memberRoles->getMemberRoleByMember($DBResult["MemberID"]);
+    $DBresponsibilities = $responsibilities->getResponsibilityById($DBmemberole["RoleID"]);
   } catch (Exception $ex) {
     $login_err = "kunne ikke finde bruger id";
     exit;
@@ -88,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["useraName"] = $DBResult["FirstName"] . " " . $DBResult["LastName"];
     $_SESSION["regionAdmin"] = $DBResult["RegionAdmin"];
     $_SESSION["admin"] = $DBResult["Admin"];
-    $_SESSION["MemberRole"] = $DBResult["Admin"] ? "Admin" : "Medlem";
+    $_SESSION["MemberRole"] = $DBresponsibilities["Role"];
     header("location: mainMenu.php");
     exit;
   } else {

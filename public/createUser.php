@@ -4,13 +4,19 @@ require '../config.php';
 require '../models/Club.php';
 require '../models/Member.php';
 require '../models/ClubRelation.php';
+require '../models/Responsibilities.php';
+require '../models/MemberRoles.php';
 
 session_start();
 
 $club = new Club($db);
 $clubs = $club->getAllClubs();
-
 $clubRelation = new ClubRelation($db);
+
+$responsibilities = new Responsibilities($db);
+$allRoles = $responsibilities->getAllResponsibilities();
+
+$memberRole = new MemberRoles($db);
 
 $member = new Member($db);
 
@@ -45,6 +51,20 @@ $data_text_type = [
             foreach ($clubs as $clubItem) {
             ?>
               <option value="<?= $clubItem["ClubID"] ?>"><?= $clubItem["ClubName"] ?></option>
+            <?php
+            }
+            ?>
+          </select>
+        </div>
+      </div>
+      <div class="box-input-container">
+        <label for="role">Medlems rolle</label>
+        <div class="select-wrapper">
+          <select name="role" id="role">
+            <?php
+            foreach ($allRoles as $role) {
+            ?>
+              <option value="<?= $role["RoleID"] ?>" <?= $role["Role"] === 'Medlem' ? 'selected' : '' ?>><?= $role["Role"] ?></option>
             <?php
             }
             ?>
@@ -107,8 +127,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     $newUser = $member->createMember($data);
     $clubRelation->createClubRelation(['memberID' => $newUser["MemberID"], 'clubID' => $_POST["club"]]);
-    $userdata = "#{$newUser["MemberID"]}: {$newUser["LocalMemberID"]} - {$newUser["FirstName"]}";
-    echo "<script>console.log({'$userdata'}); alert({'$userdata'});</script>";
+    $memberRole->createMemberRole(['roleID' => $_POST["role"], 'memberID' => $newUser["MemberID"]]);
+    echo "<script>alert('nyt medlem tilføjet')</script>";
   } catch (Exception $ex) {
     echo "<script>console.log({'$ex'})</script>";
     echo "<script>alert('kunne ikke oprette bruger')</script>";
