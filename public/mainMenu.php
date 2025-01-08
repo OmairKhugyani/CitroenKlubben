@@ -51,9 +51,12 @@ if (!isset($_SESSION["localID"])) {
     <div class="box-center">
       <h3 class="margin-bottom-0">Data udtræk</h3>
     </div>
-    <div class="container_space-around margin-bottom-1">
-      <a class="link-remove btn margin-x-auto"><svg class="svg-doc"></svg>Udtræk klub data</a>
-    </div>
+    <div class="container_space-around">
+    <a class="btn btn-white-greenhover" href="exportData.php">
+        <svg class="svg-doc"></svg>Udtræk klub data
+    </a>
+</div>
+
   </main>
 </div>
 <?php
