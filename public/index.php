@@ -49,7 +49,6 @@ $member = new Member($db);
           <p><?= $userid_err ?></p>
         </div>
       <?php } ?>
-      <a href="mainMenu.php">Main menu</a>
     </form>
   </div>
 </div>
@@ -90,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // if password currect starts new session with user data
     session_start();
     $_SESSION["loggedin"] = true;
-    $_SESSION["MenberID"] = $DBResult["MemberID"];
+    $_SESSION["MemberID"] = $DBResult["MemberID"];
     $_SESSION["localID"] = $DBResult["LocalMemberID"];
     $_SESSION["useraName"] = $DBResult["FirstName"] . " " . $DBResult["LastName"];
     $_SESSION["regionAdmin"] = $DBResult["RegionAdmin"];

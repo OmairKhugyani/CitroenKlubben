@@ -227,14 +227,6 @@ button:hover,
 }
 
 
-footer p {
-  position: absolute;
-  bottom: 3px;
-  left: 17px;
-  z-index: -5;
-}
-
-
 /*! Classes */
 
 /* button classes*/

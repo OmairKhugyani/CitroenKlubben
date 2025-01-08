@@ -6,16 +6,16 @@ error_reporting(E_ALL);
 
 // Indlæs databasekonfiguration og Member-klassen
 require '../../config.php';
-require '../../classes/Member.php';
+require '../../Models/Member.php';
 
 // Opret en ny instans af Member-klassen
 $member = new Member($db);
 
 // Data til opdatering
 $data = [
-    'memberID' => 1, // ID for medlemmet, der skal opdateres
-    'firstName' => 'UpdatedName',
-    'lastName' => 'UpdatedLastName',
+    'memberID' => 32, // ID for medlemmet, der skal opdateres
+    'firstName' => 'nyt',
+    'lastName' => 'nut',
     'address1' => 'Updated Address 1',
     'address2' => null,
     'postalCode' => '5678',
@@ -31,14 +31,27 @@ $data = [
     'regionAdmin' => 0,
     'admin' => 0,
     'allowRegion' => 0,
-    'allowAll' => 1
+    'allowAll' => 1,
+    'passWord' => '123',
+    'passWordChanged' => 0,
 ];
 
 
-// Kald funktionen for at opdatere medlemmet
-if ($member->updateMember($data)) {
-    echo "Medlem opdateret succesfuldt!\n";
-} else {
-    echo "Fejl ved opdatering af medlem.\n";
-}
-?>
+//Kald funktionen for at opdatere medlemmet
+// if ($member->updateMember($data)) {
+//     echo "Medlem opdateret succesfuldt!\n";
+// } else {
+//     echo "Fejl ved opdatering af medlem.\n";
+//}
+
+
+/// etst for opbejct bassed Update fundction
+$test = $member->getMemberClassById(31);
+
+$test->firstName = "updatet";
+$test->lastName = "nynavn";
+$test->address1 = "hyhavn";
+$test->allowRegion = true;
+
+print_r($test);
+print_r($test->updateMemberByClass());
