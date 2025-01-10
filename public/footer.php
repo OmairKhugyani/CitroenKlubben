@@ -1,7 +1,7 @@
 </div>
 <footer>
   <div>
-    <p>Rettigheder reseveret for CitroenKlubben.dk © 2025</p>
+    <p>Rettigheder tilhørende CitroenKlubben.dk © 2025</p>
   </div>
 </footer>
 </body>

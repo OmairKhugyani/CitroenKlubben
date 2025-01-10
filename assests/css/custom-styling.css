@@ -574,7 +574,7 @@ input:focus-visible::placeholder {
 }
 
 .container-xl {
-  width: clamp(min(100vw, 600px), 95%, 1500px);
+  width: clamp(min(100vw, 600px), 95%, 1400px) !important;
   padding: 1.5rem .3rem;
 }
 

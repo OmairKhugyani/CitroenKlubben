@@ -13,7 +13,7 @@ require '../config.php';
 
   <!-- styling Links -->
   <link rel="stylesheet" href="../assests/css/normalize.css">
-  <link rel="stylesheet" href="../assests/css/comstom-styling.css">
+  <link rel="stylesheet" href="../assests/css/custom-styling.css">
   <link rel="stylesheet" href="../assests/css/icons.css">
   <!-- Font Links -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
