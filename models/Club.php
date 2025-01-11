@@ -95,7 +95,8 @@ class Club
     }
 
     // data getters
-    public function getMembersByClubId($clubID) {
+    public function getMembersByClubId($clubID)
+    {
         $sql = "SELECT Member.MemberID, Member.FirstName, Member.LastName 
                 FROM Member
                 JOIN ClubRelation ON Member.MemberID = ClubRelation.MemberID
@@ -104,9 +105,21 @@ class Club
         $stmt->execute([':clubID' => $clubID]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
+    public function getAllMembersByClubId($clubID)
+    {
+        $sql = "SELECT *
+                FROM Member
+                JOIN ClubRelation ON Member.MemberID = ClubRelation.MemberID
+                WHERE ClubRelation.ClubID = :clubID";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':clubID' => $clubID]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // data getters
-    public function getAllMembersAndClubs() {
+    public function getAllMembersAndClubs()
+    {
         $sql = "SELECT Member.MemberID, Member.FirstName, Member.LastName, Club.ClubID, Club.ClubName 
                 FROM Member
                 JOIN ClubRelation ON Member.MemberID = ClubRelation.MemberID
@@ -114,5 +127,4 @@ class Club
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
 }

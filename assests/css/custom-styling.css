@@ -327,6 +327,32 @@ button:hover,
   color: var(--gray-light);
 }
 
+.btn-delete {
+  padding: .1rem .3rem;
+  width: 90%;
+  border-radius: 10px;
+  border: white 1px solid;
+  color: white;
+  background-color: var(--red);
+  display: flex;
+  margin: 2px;
+  justify-content: space-evenly;
+  align-items: center;
+  font-weight: var(--font-weight-light);
+  font-size: 1rem;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.btn-delete:hover {
+  background-color: var(--red-dark);
+  color: white;
+  border-width: 1px;
+  border-color: white;
+}
+
 .warning-box {
   background: var(--yellow);
   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
@@ -631,6 +657,10 @@ input:focus-visible::placeholder {
   grid-template-columns: min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(200px, 50vw) min(100px, 50vw) min(150px, 50vw);
 }
 
+.delete-table-head {
+  grid-template-columns: min(70px, 20vw) min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(100px, 50vw) min(150px, 50vw);
+}
+
 .table-head>p {
   font-size: clamp(.8rem, 1.2rem, 1.5rem);
   text-wrap: nowrap;
@@ -655,9 +685,17 @@ input:focus-visible::placeholder {
   -o-transition: .4s cubic-bezier(0.5, 1.04, 0.19, 0.99);
 }
 
+.delete-table-row {
+  grid-template-columns: min(70px, 20vw) min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(100px, 50vw) min(150px, 50vw) !important;
+}
+
 .table-row:hover {
   box-shadow: inset 0vw -100px 0px rgba(38, 108, 165, 0.9);
   font-size: 1.2rem;
+}
+
+.delete-hover:hover {
+  box-shadow: inset 0vw -100px 0px rgba(192, 35, 35, 0.8) !important;
 }
 
 .table-row p {

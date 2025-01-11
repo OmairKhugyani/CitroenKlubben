@@ -7,7 +7,7 @@ if (!isset($_SESSION["localID"])) {
   header('Location: index.php');
   exit;
 }
-
+header_remove(null);
 ?>
 <div class="container container-lg box-bg-gradient">
   <form action="mainMenu.php" method="post">
@@ -33,7 +33,7 @@ if (!isset($_SESSION["localID"])) {
       <h3 class="margin-bottom-0">Se medlemmer</h3>
     </div>
     <div class="small-row container_space-around margin-bottom-1 max-with-800">
-      <a class="link-remove btn margin-x-auto" href="klubList.php"><svg class="svg-user"></svg>Egen klub</a>
+      <a class="link-remove btn margin-x-auto" href="ownKlubList.php"><svg class="svg-user"></svg>Egen klub</a>
       <a class="link-remove btn margin-x-auto" href="klubList.php"><svg class="svg-user-more"></svg>Alle klubber</a>
     </div>
 
@@ -46,17 +46,17 @@ if (!isset($_SESSION["localID"])) {
         <a class="link-remove btn btn-white-greenhover margin-x-auto" href="createUser.php"><svg class="svg-user-add"></svg>Tilføj medlem</a>
         <a class="link-remove btn btn-white-redhover margin-x-auto" href="deleteUser.php"><svg class="svg-user-remove"></svg>Fjern medlem</a>
       </div>
+
+      <div class="box-center">
+        <h3 class="margin-bottom-0">Data udtræk</h3>
+      </div>
+      <div class="container_space-around">
+        <a class="btn btn-white-greenhover" href="exportData.php">
+          <svg class="svg-doc"></svg>Udtræk klub data
+        </a>
+
+      </div>
     <?php } ?>
-
-    <div class="box-center">
-      <h3 class="margin-bottom-0">Data udtræk</h3>
-    </div>
-    <div class="container_space-around">
-    <a class="btn btn-white-greenhover" href="exportData.php">
-        <svg class="svg-doc"></svg>Udtræk klub data
-    </a>
-</div>
-
   </main>
 </div>
 <?php

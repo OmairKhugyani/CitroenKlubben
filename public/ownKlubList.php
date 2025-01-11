@@ -3,9 +3,16 @@ session_start();
 include("header.php");
 require("../config.php");
 require("../models/Member.php");
+require '../models/Club.php';
+require '../models/ClubRelation.php';
 
-$members = new Member($db);
-$AllMembers = $members->getAllMembers();
+
+$club = new CLub($db);
+$clubRelation = new ClubRelation($db);
+$userClub = $clubRelation->getClubRelationsByMemberID($_SESSION["MemberID"]);
+
+$userClubID = $userClub[0]["ClubID"];
+$AllMembers = $club->getAllMembersByClubId($userClubID);
 
 $tableHeaders = [
   "Medlems Nr.",
@@ -34,7 +41,7 @@ $tableHeaders = [
   </div>
   <main class="box-content-padding box-center flex">
     <div class="container-table-overflow">
-      <h4>Alle klubber</h4>
+      <h4>Egen klub</h4>
       <div class="table-head">
         <?php foreach ($tableHeaders as $heading) { ?>
           <p><?= $heading ?></p>

@@ -9,7 +9,7 @@ require '../../models/Member.php';
 $member = new Member($db);
 
 $data = [
-    'localMemberID'          => 'w123213',
+    'localMemberID'          => 'sdfsdf',
     'firstName'              => 'Test',
     'lastName'               => 'Person',
     'address1'               => 'Testvej 1',

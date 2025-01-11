@@ -1,8 +1,18 @@
 <?php
+session_start();
 include("header.php");
+require("../config.php");
+require("../models/Member.php");
+require("../models/Club.php");
 
-#include("./classes/Member.php");
+$members = new Member($db);
+$AllMembers = $members->getAllMembers();
+
+$club = new club($db);
+$AllClubs = $club->getAllClubs();
+
 $tableHeaders = [
+  "",
   "Medlems Nr.",
   "Navn",
   "Efternavn",
@@ -11,58 +21,7 @@ $tableHeaders = [
   "Post Nr.",
   "By",
 ];
-$member = [
-  "id" => 12,
-  "name" => "tom",
-  "lastname" => "hansen",
-  "address" => "lillevangsvej 2, 2mf",
-  "address2" => "",
-  "postnumber" => 2323,
-  "city" => "København",
-  // $email = "tom@mail.com";
-  // $phone = 232323;
-];
-$memberList = [
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-  $member,
-]
+
 ?>
 
 <div class="container container-xl box-bg-gradient">
@@ -70,37 +29,33 @@ $memberList = [
   <h1>Slet bruger</h1>
   <div class="infobar-container">
     <div>
-      <label for="klub">Klub</label>
-      <div class="select-wrapper">
-        <select name="klub" id="klub" required>
-          <?php include("klubOptions.php") ?>
-        </select>
-      </div>
     </div>
     <div>
       <h6>Antal medlemmer</h6>
-      <h3><?= count($memberList) ?></h3>
+      <h3><?= count($AllMembers) ?></h3>
     </div>
   </div>
   <main class="box-content-padding box-center flex">
     <div class="container-table-overflow">
-      <div class="table-head">
+      <div class="table-head delete-table-head">
         <?php foreach ($tableHeaders as $heading) { ?>
           <p><?= $heading ?></p>
         <?php } ?>
       </div>
       <div>
-        <?php foreach ($memberList as $item) { ?>
-          <div class="table-row">
-            <p><?= $item["id"] ?></p>
-            <p><?= $item["name"] ?></p>
-            <p><?= $item["lastname"] ?></p>
-            <p><?= $item["address"] ?></p>
-            <p><?= $item["address2"] ?></p>
-            <p><?= $item["postnumber"] ?></p>
-            <p><?= $item["city"] ?></p>
-          </div>
-        <?php } ?>
+        <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="delete-member">
+          <?php foreach ($AllMembers as $item) { ?>
+            <div class="table-row delete-table-row delete-hover">
+              <button class="btn-delete p" name="deleteUser" type="submit" value="<?= $item["MemberID"] ?>">Fjen</button>
+              <p><?= $item["LocalMemberID"] ?></p>
+              <p><?= $item["FirstName"] ?></p>
+              <p><?= $item["LastName"] ?></p>
+              <p><?= $item["Address1"] ?></p>
+              <p><?= $item["PostalCode"] ?></p>
+              <p><?= $item["City"] ?></p>
+            </div>
+          <?php } ?>
+        </form>
       </div>
     </div>
   </main>
@@ -108,4 +63,12 @@ $memberList = [
 
 <?php
 include("footer.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  try {
+    $members->deleteMember($_POST["deleteUser"]);
+  } catch (Exception $ex) {
+    echo "<script>alert('kunne ikke slette bruger')</script>";
+  }
+}
 ?>

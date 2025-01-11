@@ -13,9 +13,9 @@ $member = new Member($db);
 
 // Data til opdatering
 $data = [
-    'memberID' => 32, // ID for medlemmet, der skal opdateres
+    'memberID' => "234", // ID for medlemmet, der skal opdateres
     'firstName' => 'nyt',
-    'lastName' => 'nut',
+    'lastName' => 'dfg',
     'address1' => 'Updated Address 1',
     'address2' => null,
     'postalCode' => '5678',
