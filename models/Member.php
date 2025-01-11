@@ -34,6 +34,12 @@ class Member
         $this->db = $db;
     }
 
+    // Get the database connection
+    public function getDbConnection() {
+        return $this->db;
+    }
+    
+
     public function createMember($data)
     {
         $sql = "INSERT INTO Member (LocalMemberID, FirstName, LastName, Address1, Address2, PostalCode, City, Phone, Email, DirectDebitAgreement, MembershipPaidUntil, YouthMembership, YouthMembershipYear, Apua, RegionAdmin, Admin, AllowRegion, AllowAll, PassWord, PassWordChanged)

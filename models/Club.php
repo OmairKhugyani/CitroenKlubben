@@ -93,4 +93,26 @@ class Club
     {
         return $this::$clubName;
     }
+
+    // data getters
+    public function getMembersByClubId($clubID) {
+        $sql = "SELECT Member.MemberID, Member.FirstName, Member.LastName 
+                FROM Member
+                JOIN ClubRelation ON Member.MemberID = ClubRelation.MemberID
+                WHERE ClubRelation.ClubID = :clubID";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':clubID' => $clubID]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    // data getters
+    public function getAllMembersAndClubs() {
+        $sql = "SELECT Member.MemberID, Member.FirstName, Member.LastName, Club.ClubID, Club.ClubName 
+                FROM Member
+                JOIN ClubRelation ON Member.MemberID = ClubRelation.MemberID
+                JOIN Club ON ClubRelation.ClubID = Club.ClubID";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }
