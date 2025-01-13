@@ -46,12 +46,14 @@ $data = [
 
 
 /// etst for opbejct bassed Update fundction
-$test = $member->getMemberClassById(31);
+$member = $member->getMemberClassById(38);
+print_r($member);
 
-$test->firstName = "updatet";
-$test->lastName = "nynavn";
-$test->address1 = "hyhavn";
-$test->allowRegion = true;
+$member->firstName = "erik";
+$member->lastName = "bendt";
+$member->address1 = "hyhavn";
 
-print_r($test);
-print_r($test->updateMemberByClass());
+$member->updateMemberByClass();
+
+print_r($member = $member->getMemberClassById(38));
+// print_r($test->updateMemberByClass());

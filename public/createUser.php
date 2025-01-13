@@ -7,18 +7,14 @@ require '../models/ClubRelation.php';
 require '../models/Responsibilities.php';
 require '../models/MemberRoles.php';
 
-session_start();
-
 $club = new Club($db);
-$clubs = $club->getAllClubs();
-$clubRelation = new ClubRelation($db);
-
-$responsibilities = new Responsibilities($db);
-$allRoles = $responsibilities->getAllResponsibilities();
-
 $memberRole = new MemberRoles($db);
-
+$clubRelation = new ClubRelation($db);
+$responsibilities = new Responsibilities($db);
 $member = new Member($db);
+
+$clubs = $club->getAllClubs();
+$allRoles = $responsibilities->getAllResponsibilities();
 
 $data_text_type = [
   //[ name & id & for, label & placeholder, type ]
@@ -32,7 +28,8 @@ $data_text_type = [
   ['regionAdmin', 'Klub admin', 'checkbox'],
   ['admin', 'Admin', 'checkbox'],
   ['password', 'Midlertidigt kode ord', 'password'],
-]
+];
+session_start();
 
 ?>
 <div class="container container-lg box-bg-gradient">

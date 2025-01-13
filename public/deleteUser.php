@@ -17,7 +17,6 @@ $tableHeaders = [
   "Navn",
   "Efternavn",
   "Adresse",
-  "2. Adresse",
   "Post Nr.",
   "By",
 ];

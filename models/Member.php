@@ -13,7 +13,7 @@ class Member
     public ?string $address2;
     public ?int $postalCode;
     public ?string $city;
-    public ?int $phone;
+    public ?string $phone;
     public ?string $email;
     public ?string $joinDate;
     public ?bool $directDebitAgreement;
@@ -35,10 +35,11 @@ class Member
     }
 
     // Get the database connection
-    public function getDbConnection() {
+    public function getDbConnection()
+    {
         return $this->db;
     }
-    
+
 
     public function createMember($data)
     {
@@ -149,33 +150,60 @@ class Member
         return $stmt->execute($data);
     }
 
+    /**
+     * Updates user based on the member klass objekts that calles it
+     * @return Member object if succes.
+     */
     public function updateMemberByClass()
     {
         $sql = "UPDATE Member SET
-            FirstName = {$this->firstName},
-            LastName = {$this->lastName},
-            Address1 = {$this->address1},
-            Address2 = {$this->address2},
-            PostalCode = {$this->postalCode},
-            City = {$this->city},
-            Phone = {$this->phone},
-            Email = {$this->email},
-            DirectDebitAgreement = {$this->directDebitAgreement},
-            MembershipPaidUntil = {$this->membershipPaidUntil},
-            YouthMembership = {$this->youthMembership},
-            YouthMembershipYear = {$this->youthMembershipYear},
-            Apua = {$this->isApua},
-            RegionAdmin = {$this->isDistrictAdmin},
-            Admin = {$this->isAdmin},
-            AllowRegion = {$this->allowRegion},
-            AllowAll = {$this->allowAll},
-            PassWord = {$this->passWord},
-            PassWordChanged = {$this->passWordChanged},
-            WHERE MemberID = {$this->memberID}";
+            FirstName = :firstName,
+            LastName = :lastName,
+            Address1 = :address1,
+            Address2 = :address2,
+            PostalCode = :postalCode,
+            City = :city,
+            Phone = :phone,
+            Email = :email,
+            JoinDate = :joinDate,
+            DirectDebitAgreement = :directDebitAgreement,
+            MembershipPaidUntil = :membershipPaidUntil,
+            YouthMembership = :youthMembership,
+            YouthMembershipYear = :youthMembershipYear,
+            Apua = :apua,
+            RegionAdmin = :regionAdmin,
+            Admin = :admin,
+            AllowRegion = :allowRegion,
+            AllowAll = :allowAll,
+            PassWord = :passWord,
+            PassWordChanged = :passWordChanged
+            WHERE MemberID = :memberID";
 
-        print_r($sql);
+        $data = [
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'address1' => $this->address1,
+            'address2' => $this->address2,
+            'postalCode' => $this->postalCode,
+            'city' => $this->city,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'directDebitAgreement' => $this->directDebitAgreement,
+            'membershipPaidUntil' => $this->membershipPaidUntil,
+            'youthMembership' => $this->youthMembership,
+            'youthMembershipYear' => $this->youthMembershipYear,
+            'apua' => $this->isApua,
+            'regionAdmin' => $this->isDistrictAdmin,
+            'admin' => $this->isAdmin,
+            'allowRegion' => $this->allowRegion,
+            'allowAll' => $this->allowAll,
+            'passWord' => $this->passWord,
+            'passWordChanged' => $this->passWordChanged,
+            'memberID' => $this->memberID,
+        ];
+
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute($this);
+        return $stmt->execute($data);
     }
 
     // Delete a member
@@ -184,5 +212,26 @@ class Member
         $sql = "DELETE FROM Member WHERE MemberID = :memberID";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':memberID' => $memberID]);
+    }
+
+    public function smallupdateMember()
+    {
+        $sql = "UPDATE Member SET
+            FirstName = :firstName,
+            LastName = :lastName,
+            Address1 = :address1,
+            Address2 = :address2
+            WHERE MemberID = :memberID";
+
+        $data = [
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'address1' => $this->address1,
+            'address2' => $this->address2,
+            'memberID' => $this->memberID,
+        ];
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($data);
     }
 }

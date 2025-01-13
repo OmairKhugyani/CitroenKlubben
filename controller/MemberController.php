@@ -3,7 +3,8 @@ require_once '../config.php';
 require '../Interface/Idb.php';
 class MemberController extends DBController
 {
-  private $currentMenberID;
+  private $currentMemberID;
+  private $currentMember;
 
   public function __construct($db)
   {
@@ -14,10 +15,10 @@ class MemberController extends DBController
   public function SetCurrentMemberID()
   {
     if (isset($_SESSION["MemberID"])) {
-      $this->currentMenberID = $_SESSION["MemberID"];
-      $this->Member = $this->Member->getMemberClassById($this->currentMenberID);
+      $this->currentMemberID = $_SESSION["MemberID"];
+      $this->Member = $this->Member->getMemberClassById($this->currentMemberID);
     } else {
-      $this->currentMenberID = null;
+      $this->currentMemberID = null;
     }
   }
 
@@ -25,51 +26,30 @@ class MemberController extends DBController
   {
     $this->SetCurrentMemberID();
     if (isset($this->currentMenberID)) {
-      return $this->Member->getMemberClassById($this->currentMenberID);
+      return $this->Member->getMemberClassById($this->currentMemberID);
     }
   }
-  public function UpdateMember(array $data)
+  /**
+   * Takes $_post result from a form, takes
+   * @param array $post from $_POST
+   * @return mixed rerurns member objekt
+   */
+  public function UpdateMemberByPost(array $post)
   {
-    // $this->currentMember->memberID = $data["memberID"];
-    // $this->currentMember->localMemberID = $data["localMemberID"];
-    $this->Member->firstName = $data["firstName"];
-    $this->Member->lastName = $data["lastName"];
-    $this->Member->address1 = $data["address1"];
-    $this->Member->address2 = $data["address2"];
-    $this->Member->postalCode = $data["postalCode"];
-    $this->Member->city = $data["city"];
-    $this->Member->phone = $data["phone"];
-    $this->Member->email = $data["email"];
-    // $this->currentMember->joinDate = $data["joinDate"];
-    //$this->currentMember->directDebitAgreement = $data["directDebitAgreement"];
-    //$this->currentMember->membershipPaidUntil = $data["membershipPaidUntil"];
-    //$this->currentMember->youthMembership = $data["youthMembership"];
-    //$this->currentMember->youthMembershipYear = $data["youthMembershipYear"];
-    if (!isset($data["isApua"]) || $data["isApua"] == null || empty($data["isApua"] || $data["isApua"] === 0)) {
-      $this->Member->isApua = false;
-    } else {
-      $this->Member->isApua = true;
-    }
-    //$this->currentMember->isDistrictAdmin = $data["regionAdmin"];
-    //$this->currentMember->isAdmin = $data["admin"];
-    if (!isset($data["allowRegion"]) || $data["allowRegion"] == null || empty($data["allowRegion"] || $data["allowRegion"] === 0)) {
-      $this->Member->allowRegion = false;
-    } else {
-      $this->Member->allowRegion = true;
-    }
-    if (!isset($data["allowAll"]) || $data["allowAll"] == null || empty($data["allowAll"] || $data["allowAll"] === 0)) {
-      $this->Member->allowAll = false;
-    } else {
-      $this->Member->allowAll = true;
-    }
-    $this->Member->passWord = $data["passWord"];
-    //$this->currentMember->passWordChanged = $data["passWordChanged"];
-    try {
-      return $this->Member->updateMemberByClass();
-    } catch (Exception $ex) {
-      echo "<script>console.log({'$ex'})</script>";
-      echo "<script>alert('kunne ikke oprette bruger')</script>";
-      exit;
-    }
+    $this->Member->memberID    = $this->currentMemberID;
+    $this->Member->firstName   = $post["firstName"];
+    $this->Member->lastName    = $post["lastName"];
+    $this->Member->address1    = $post["address1"];
+    $this->Member->address2    = $post["address2"];
+    $this->Member->postalCode  = $post["postalCode"];
+    $this->Member->city        = $post["city"];
+    $this->Member->phone       = $post["phone"];
+    $this->Member->email       = $post["email"];
+    $this->Member->isApua      = isset($post["isApua"]) ? true : false;
+    $this->Member->allowRegion = isset($post["allowRegion"]) ? true : false;
+    $this->Member->allowAll    = isset($post["allowAll"]) ? true : false;
+    $this->Member->passWord    = password_hash($post["passWord"], PASSWORD_DEFAULT);
+
+    return $this->Member->updateMemberByClass();
   }
 }
