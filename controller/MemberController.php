@@ -1,6 +1,13 @@
 <?php
 require_once '../config.php';
 require '../Interface/Idb.php';
+/**
+ * MemberController takes care of all member and related actions
+ * Full member CRUD support
+ * Handle Support with all Model trough this controller
+ *    -  $MemberController->'Model_class'->'model_funtion()';    
+ * Modeles[ Member, Club , ClubRelations , MemberRoles , Responsibilities , VehicleRegister , MagazineFees , Subscriptions , Newsletter ]
+ */
 class MemberController extends DBController
 {
   public $currentMember;
@@ -73,14 +80,6 @@ class MemberController extends DBController
   {
     return $this->MemberRoles->getAllMemberRoles();
   }
-
-  /**
-   * GetClubsMemberIsIn gets a list of clubs according to the member <-> relation
-   * @param int $id id of member defults to current member
-   * @return array[Club]
-   */
-  //public function GetClubsMemberIsIn(int $id = $this->currentMember->memberID) {}
-
 
   /**
    * Summary of GetMemberID

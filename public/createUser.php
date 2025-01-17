@@ -9,9 +9,6 @@ if (!isset($_SESSION["localID"]) && ($_SESSION["regionAdmin"] == true || $_SESSI
 require '../controller/MemberController.php';
 $memberController = new MemberController($db);
 
-$clubs = $memberController->getAllClubs();
-$Roles = $memberController->GetAllResponsibilities();
-
 ?>
 <div class="container container-lg box-bg-gradient">
   <a class="btn-small" href="mainMenu.php"><svg class="svg-door"></svg>Tilbage</a>
@@ -26,7 +23,7 @@ $Roles = $memberController->GetAllResponsibilities();
         <div class="select-wrapper">
           <select name="club" id="klub" required>
             <option value="Null" selected disabled hidden>Vælg en klub</option>
-            <?php foreach ($clubs as $clubItem) { ?>
+            <?php foreach ($memberController->getAllClubs() as $clubItem) { ?>
               <option value="<?= $clubItem->clubID ?>"><?= $clubItem->clubName ?></option>
             <?php } ?>
           </select>
@@ -37,7 +34,7 @@ $Roles = $memberController->GetAllResponsibilities();
         <label for="role">Medlems rolle</label>
         <div class="select-wrapper">
           <select name="role" id="role">
-            <?php foreach ($Roles as $role) { ?>
+            <?php foreach ($memberController->GetAllResponsibilities() as $role) { ?>
               <option value="<?= $role->roleID ?>" <?= $role->role === 'Medlem' ? 'selected' : '' ?>><?= $role->role ?></option>
             <?php } ?>
           </select>
