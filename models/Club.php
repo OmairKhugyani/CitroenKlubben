@@ -33,6 +33,14 @@ class Club
     public float $membershipFee;
     public string $abbreviation;
 
+    private function populateClub($data)
+    {
+        $clubID        = $data['ClubID'];
+        $clubName      = $data['ClubName'];
+        $membershipFee = $data['MemberShipFee'];
+        $abbreviation  = $data['Abbreviation'];
+    }
+
     // Constructor to initialize the database
     public function __construct($db)
     {

@@ -1,5 +1,14 @@
 <?php
 include("header.php");
+session_start();
+if (!isset($_SESSION["localID"]) && ($_SESSION["regionAdmin"] == true || $_SESSION["admin"] == true)) {
+  session_destroy();
+  header('Location: index.php');
+  exit;
+}
+require '../controller/MemberController.php';
+$memberController = new MemberController($db);
+
 require '../config.php';
 require '../models/Club.php';
 require '../models/Member.php';
@@ -29,7 +38,7 @@ $data_text_type = [
   ['admin', 'Admin', 'checkbox'],
   ['password', 'Midlertidigt kode ord', 'password'],
 ];
-session_start();
+
 
 ?>
 <div class="container container-lg box-bg-gradient">

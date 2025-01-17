@@ -1,6 +1,6 @@
 <?php
 
-require_once '../models/Member.php';
+require_once '../models/MemberOO.php';
 require_once '../models/Club.php';
 require_once '../models/ClubRelation.php';
 require_once '../models/Responsibilities.php';

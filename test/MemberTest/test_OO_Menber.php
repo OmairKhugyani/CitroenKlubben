@@ -8,25 +8,33 @@ error_reporting(E_ALL);
 require '../../config.php';
 require '../../Models/MemberOO.php';
 
-
 $member = new Member($db);
 
-$member->localMemberID = "TEST001";
-$member->firstName = "jake";
-$member->lastName = "nikle";
-$member->email = "jake@nikle";
-$member->passWord = "123";
+if (true) {
+  $member->localMemberID = "TEST001";
+  $member->firstName = "jake";
+  $member->lastName = "nikle";
+  $member->email = "jake@nikle";
+  $member->passWord = "123";
 
-$member->createMember();
-print_r($member->getMemberById($db->lastInsertId()));
+  $member->createMember();
+  print_r($member->getMemberById($db->lastInsertId()));
 
-$member->address1 = "jake";
-$member->city = "mikka";
-$member->phone = "123456";
+  $member->isApua = true;
+  $member->passWordChanged = true;
 
-// $member->getAllMembers();
+  // $member->updateMember();
+  // print_r($member->getMemberByLocalMemberID($member->localMemberID));
 
-$member->updateMember();
-print_r($member->getMemberByLocalMemberID($member->localMemberID));
+  // $member->phone = 2393;
+  // $member->allowAll = true;
 
-$member->deleteMember($member->memberID);
+  // $member->updateMember();
+  // print_r($member->getMemberByLocalMemberID($member->localMemberID));
+  // echo $member->allowAll == true ? 'true' : 'false';
+
+  //$member->deleteMember($member->memberID);
+} else {
+  $members = $member->getAllMembers();
+  print_r($members);
+}

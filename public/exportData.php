@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION["localID"])) {
+  session_destroy();
+  header('Location: index.php');
+  exit;
+}
 include("header.php");
 require '../config.php';
 require '../models/Club.php';

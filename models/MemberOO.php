@@ -91,7 +91,7 @@ class Member
         $stmt->bindParam(':isAdmin', $this->isAdmin, PDO::PARAM_BOOL);
         $stmt->bindParam(':allowRegion', $this->allowRegion, PDO::PARAM_BOOL);
         $stmt->bindParam(':allowAll', $this->allowAll, PDO::PARAM_BOOL);
-        $stmt->bindParam(':passWord', $this->passWord);
+        $stmt->bindParam(':passWord', password_hash($this->passWord, PASSWORD_DEFAULT));
         $stmt->bindParam(':passWordChanged', $this->passWordChanged, PDO::PARAM_BOOL);
 
         return $stmt->execute();
@@ -119,14 +119,17 @@ class Member
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $this->populateMember($result);
-            return $this;
-        } else {
-            return null;
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $members = [];
+
+        foreach ($results as $result) {
+            $member = new self($this->db);
+            $member->populateMember($result);
+            $members[] = $member;
         }
+        return $members;
     }
+
 
     public function getMemberByLocalMemberID($localMemberID)
     {

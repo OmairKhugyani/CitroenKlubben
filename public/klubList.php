@@ -1,11 +1,13 @@
 <?php
 session_start();
+if (!isset($_SESSION["localID"])) {
+  session_destroy();
+  header('Location: index.php');
+  exit;
+}
 include("header.php");
-require("../config.php");
-require("../models/Member.php");
-
-$members = new Member($db);
-$AllMembers = $members->getAllMembers();
+include '../controller/MemberController.php';
+$memberController = new MemberController($db);
 
 $tableHeaders = [
   "Medlems Nr.",
@@ -14,7 +16,13 @@ $tableHeaders = [
   "Adresse",
   "2. Adresse",
   "Post Nr.",
-  "By",
+  "By"
+];
+$tableHeaders = [
+  "Medlems Nr.",
+  "Navn / Efternavn",
+  "Adresse / 2. Adresse",
+  "Post Nr. / By"
 ];
 ?>
 
@@ -29,10 +37,11 @@ $tableHeaders = [
     </div>
     <div>
       <h6>Antal medlemmer</h6>
-      <h3><?= count($AllMembers) ?></h3>
+      <h3><?= count($memberController->GetAllMember()) ?></h3>
     </div>
   </div>
   <main class="box-content-padding box-center flex">
+    <!--     
     <div class="container-table-overflow">
       <h4>Alle klubber</h4>
       <div class="table-head">
@@ -41,19 +50,52 @@ $tableHeaders = [
         <?php } ?>
       </div>
       <div>
-        <?php foreach ($AllMembers as $item) { ?>
+        <?php foreach ($memberController->GetAllMember() as $item) { ?>
           <div class="table-row">
-            <p><?= $item["LocalMemberID"] ?></p>
-            <p><?= $item["FirstName"] ?></p>
-            <p><?= $item["LastName"] ?></p>
-            <p><?= $item["Address1"] ?></p>
-            <p><?= $item["Address2"] ?></p>
-            <p><?= $item["PostalCode"] ?></p>
-            <p><?= $item["City"] ?></p>
+            <p><?= $item->localMemberID; ?></p>
+            <p><?= $item->firstName; ?></p>
+            <p><?= $item->lastName; ?></p>
+            <p><?= $item->address1; ?></p>
+            <p><?= $item->address2; ?></p>
+            <p><?= $item->postalCode; ?></p>
+            <p><?= $item->city; ?></p>
+          </div>
+        <?php } ?>
+      </div>
+    </div> -->
+
+
+    <div class="container-table-overflow">
+      <h4>Alle klubber</h4>
+      <div class="table-head table-head-v2">
+        <?php foreach ($tableHeaders as $heading) { ?>
+          <p><?= $heading ?></p>
+        <?php } ?>
+      </div>
+      <div>
+        <?php foreach ($memberController->GetAllMember() as $item) { ?>
+          <div class="table-row table-row-v2">
+            <div class="box-center">
+              <p><?= $item->localMemberID; ?></p>
+            </div>
+            <div>
+              <p><?= $item->firstName; ?></p>
+              <p><?= $item->lastName; ?></p>
+            </div>
+            <div>
+              <p><?= $item->address1; ?></p>
+              <p><?= $item->address2; ?></p>
+            </div>
+            <div>
+              <p><?= $item->postalCode; ?></p>
+              <p><?= $item->city; ?></p>
+            </div>
           </div>
         <?php } ?>
       </div>
     </div>
+
+
   </main>
 </div>
 

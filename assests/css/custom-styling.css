@@ -657,6 +657,10 @@ input:focus-visible::placeholder {
   grid-template-columns: min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(200px, 50vw) min(100px, 50vw) min(150px, 50vw);
 }
 
+.table-head-v2 {
+  grid-template-columns: min(130px, 50vw) min(200px, 50vw) min(220px, 50vw) min(200px, 50vw) !important;
+}
+
 .delete-table-head {
   grid-template-columns: min(70px, 20vw) min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(100px, 50vw) min(150px, 50vw);
 }
@@ -685,6 +689,10 @@ input:focus-visible::placeholder {
   -o-transition: .4s cubic-bezier(0.5, 1.04, 0.19, 0.99);
 }
 
+.table-row-v2 {
+  grid-template-columns: min(130px, 50vw) min(200px, 50vw) min(220px, 50vw) min(200px, 50vw) !important;
+}
+
 .delete-table-row {
   grid-template-columns: min(70px, 20vw) min(150px, 50vw) min(150px, 50vw) min(170px, 50vw) min(200px, 50vw) min(100px, 50vw) min(150px, 50vw) !important;
 }
@@ -698,7 +706,8 @@ input:focus-visible::placeholder {
   box-shadow: inset 0vw -100px 0px rgba(192, 35, 35, 0.8) !important;
 }
 
-.table-row p {
+.table-row>p,
+.table-row>div {
   text-shadow: 0px 4px 6px rgba(0, 0, 0, 100);
   padding-left: .5rem;
   border-right: .5px solid rgba(0, 0, 0, 0.4);
@@ -717,7 +726,8 @@ input:focus-visible::placeholder {
   -o-border-radius: 0 0 10px 10px;
 }
 
-.table-row>p:last-child {
+.table-row>p:last-child,
+.table-row>div:last-child {
   padding-right: .4rem;
   border-right: none;
 }
