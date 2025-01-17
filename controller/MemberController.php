@@ -69,7 +69,7 @@ class MemberController extends DBController
    * @param int $id id of member defults to current member
    * @return array[Club]
    */
-  public function GetClubsMemberIsIn(int $id = $this->currentMember->memberID) {}
+  //public function GetClubsMemberIsIn(int $id = $this->currentMember->memberID) {}
 
 
   /**
