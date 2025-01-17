@@ -26,26 +26,31 @@ class MemberController extends DBController
 
   public function CreateMember($post)
   {
-    $this->Member->localMemberID          = $this->getAllClubs()[$_POST["club"] - 1]["Abbreviation"] . strval(str_pad($this->GetClubCount($_POST["club"] - 1) + 1, 3, 0, STR_PAD_LEFT));
-    $this->Member->firstName              = $_POST["firstName"];
-    $this->Member->lastName               = $_POST["lastName"];
-    $this->Member->address1               = null;
-    $this->Member->address2               = null;
-    $this->Member->postalCode             = null;
-    $this->Member->city                   = null;
-    $this->Member->phone                  = null;
-    $this->Member->email                  = $_POST["email"];
-    $this->Member->directDebitAgreement   = false;
-    $this->Member->membershipPaidUntil    = $_POST["membershipPaidUntil"];
-    $this->Member->youthMembership        = isset($_POST["youthMembership"]) ? true : false;
-    $this->Member->youthMembershipYear    = $_POST["youthMembershipYear"];
-    $this->Member->isApua                 = null;
-    $this->Member->isDistrictAdmin        = isset($_POST["regionAdmin"]) ? true : false;
-    $this->Member->isAdmin                = isset($_POST["Admin"]) ? true : false;
+    $tempclub = $this->Club->getClubById($post["club"] - 1);
+    $this->Member->localMemberID          = $tempclub->abbreviation . strval(str_pad($this->GetClubCount($post["club"] - 1) + 1, 3, 0, STR_PAD_LEFT));
+    $this->Member->firstName              = $post["firstName"];
+    $this->Member->lastName               = $post["lastName"];
+    $this->Member->email                  = $post["email"];
+    $this->Member->membershipPaidUntil    = $post["membershipPaidUntil"];
+    $this->Member->passWord               = $post["password"];
+    $this->Member->youthMembershipYear    = $post["youthMembershipYear"];
+    $this->Member->youthMembership        = isset($post["youthMembership"]) ? true : false;
+    $this->Member->isDistrictAdmin        = isset($post["regionAdmin"]) ? true : false;
+    $this->Member->isAdmin                = isset($post["admin"]) ? true : false;
+    $this->Member->isApua                 = false;
     $this->Member->allowRegion            = false;
     $this->Member->allowAll               = false;
-    $this->Member->passWord               = password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $this->Member->directDebitAgreement   = false;
     $this->Member->passWordChanged        = false;
+
+    try {
+      $this->Member->createMember();
+      $this->Member->getMemberById($this->db->lastInsertId());
+      $this->ClubRelation->createClubRelation($this->Member->memberID, $post["club"]);
+      $this->MemberRoles->createMemberRole($this->Member->memberID, $post["role"]);
+    } catch (Exception $ex) {
+      throw new Exception("Create Member failled in MemberContoller", 1);
+    }
   }
 
   //* READ funktions ////////////////////////////////////
@@ -62,6 +67,11 @@ class MemberController extends DBController
   public function GetAllClubs()
   {
     return $this->Club->getAllClubs();
+  }
+
+  public function GetAllRolles()
+  {
+    return $this->MemberRoles->getAllMemberRoles();
   }
 
   /**
@@ -103,6 +113,15 @@ class MemberController extends DBController
       return [];
     }
     return $this->currentMember;
+  }
+
+  public function GetResponsibilityByID(int $respID)
+  {
+    return $this->Responsibilities->getResponsibilityById($respID);
+  }
+  public function GetAllResponsibilities()
+  {
+    return $this->Responsibilities->getAllResponsibilities();
   }
 
   //* UPDATE funtion ////////////////////////////////////

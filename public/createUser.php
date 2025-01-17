@@ -9,36 +9,8 @@ if (!isset($_SESSION["localID"]) && ($_SESSION["regionAdmin"] == true || $_SESSI
 require '../controller/MemberController.php';
 $memberController = new MemberController($db);
 
-require '../config.php';
-require '../models/Club.php';
-require '../models/Member.php';
-require '../models/ClubRelation.php';
-require '../models/Responsibilities.php';
-require '../models/MemberRoles.php';
-
-$club = new Club($db);
-$memberRole = new MemberRoles($db);
-$clubRelation = new ClubRelation($db);
-$responsibilities = new Responsibilities($db);
-$member = new Member($db);
-
-$clubs = $club->getAllClubs();
-$allRoles = $responsibilities->getAllResponsibilities();
-
-$data_text_type = [
-  //[ name & id & for, label & placeholder, type ]
-  // ['localMemberID', 'Lokal klub ID', 'text'],
-  ['firstName', 'Fornavn', 'text'],
-  ['lastName', 'Efternavn', 'text'],
-  ['email', 'Mail', 'email'],
-  ['membershipPaidUntil', 'Medlemsskabs slut dato', 'date'],
-  ['youthMembership', 'Ungdoms medlemsskab', 'checkbox'],
-  ['youthMembershipYear', 'Ungdoms medlemsskab frast', 'date'],
-  ['regionAdmin', 'Klub admin', 'checkbox'],
-  ['admin', 'Admin', 'checkbox'],
-  ['password', 'Midlertidigt kode ord', 'password'],
-];
-
+$clubs = $memberController->getAllClubs();
+$Roles = $memberController->GetAllResponsibilities();
 
 ?>
 <div class="container container-lg box-bg-gradient">
@@ -48,53 +20,84 @@ $data_text_type = [
   </div>
   <main class="box-content-padding box-center flex">
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="medlem" class="container flex-direction-column">
+
       <div class="box-input-container">
         <label for="klub">Klub</label>
         <div class="select-wrapper">
           <select name="club" id="klub" required>
             <option value="Null" selected disabled hidden>Vælg en klub</option>
-            <?php
-            foreach ($clubs as $clubItem) {
-            ?>
-              <option value="<?= $clubItem["ClubID"] ?>"><?= $clubItem["ClubName"] ?></option>
-            <?php
-            }
-            ?>
+            <?php foreach ($clubs as $clubItem) { ?>
+              <option value="<?= $clubItem->clubID ?>"><?= $clubItem->clubName ?></option>
+            <?php } ?>
           </select>
         </div>
       </div>
+
       <div class="box-input-container">
         <label for="role">Medlems rolle</label>
         <div class="select-wrapper">
           <select name="role" id="role">
-            <?php
-            foreach ($allRoles as $role) {
-            ?>
-              <option value="<?= $role["RoleID"] ?>" <?= $role["Role"] === 'Medlem' ? 'selected' : '' ?>><?= $role["Role"] ?></option>
-            <?php
-            }
-            ?>
+            <?php foreach ($Roles as $role) { ?>
+              <option value="<?= $role->roleID ?>" <?= $role->role === 'Medlem' ? 'selected' : '' ?>><?= $role->role ?></option>
+            <?php } ?>
           </select>
         </div>
       </div>
-      <?php
-      for ($input_feild = 0; $input_feild <= count($data_text_type) - 1; $input_feild++) { ?>
-        <div class="box-input-container">
-          <?php if ($data_text_type[$input_feild][2] == "checkbox") { ?>
-            <!-- checkbox use defriens layout -->
-            <label class="checkbox_container" for="<?= $data_text_type[$input_feild][0] ?>">
-              <?= $data_text_type[$input_feild][1] ?>
-              <input type="checkbox" name="<?= $data_text_type[$input_feild][0] ?>" id="<?= $data_text_type[$input_feild][0] ?>">
-              <span class="checkmark"></span>
-            </label>
-          <?php } else { ?>
-            <label for="<?= $data_text_type[$input_feild][0] ?>"><?= $data_text_type[$input_feild][1] ?></label>
-            <input type="<?= $data_text_type[$input_feild][2] ?>" id="<?= $data_text_type[$input_feild][0] ?>" name="<?= $data_text_type[$input_feild][0] ?>" placeholder="<?= $data_text_type[$input_feild][1] ?>" <?= $data_text_type[$input_feild][0] == 'youthMembershipYear' ? '' : 'required'; ?>>
-          <?php } ?>
-        </div>
-      <?php
-      }
-      ?>
+
+      <div class="box-input-container">
+        <label for="firstName">Fornavn</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Fornavn" required>
+      </div>
+
+      <div class="box-input-container">
+        <label for="lastName">Efternavn</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Efternavn" required>
+      </div>
+
+      <div class="box-input-container">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+      </div>
+
+      <div class="box-input-container">
+        <label for="membershipPaidUntil">Medlemsskabs slut dato</label>
+        <input type="date" id="membershipPaidUntil" name="membershipPaidUntil" placeholder="" required>
+      </div>
+
+      <div class="box-input-container">
+        <label class="checkbox_container" for="youthMembership">
+          Ungdoms medlemsskab
+          <input type="checkbox" name="youthMembership" id="youthMembership">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+      <div class="box-input-container">
+        <label for="youthMembershipYear">Ungdoms medlemsskab frast</label>
+        <input type="date" id="youthMembershipYear" name="youthMembershipYear" placeholder="">
+      </div>
+
+      <div class="box-input-container">
+        <label class="checkbox_container" for="admin">
+          Admin
+          <input type="checkbox" name="admin" id="admin">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+      <div class="box-input-container">
+        <label class="checkbox_container" for="regionAdmin">
+          Regions Admin
+          <input type="checkbox" name="regionAdmin" id="regionAdmin">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+      <div class="box-input-container">
+        <label for="password">Midlertidigt kode ord</label>
+        <input type="password" id="password" name="password" placeholder="Midlertidigt kode ord" required>
+      </div>
+
       <div class="box-input-container box-center">
         <button class="btn-white-greenhover" name="CreateUser" type="submit">Opret medlem</button>
       </div>
@@ -105,35 +108,8 @@ $data_text_type = [
 <?php
 include("footer.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  $clubMemberCount = count($clubRelation->getClubRelationsByClub($_POST["club"]));
-  $data = [                     // Makes local MemberID: club Abbreviation + (number of members in club + 1)
-    'localMemberID'          => "{$clubs[$_POST["club"] - 1]["Abbreviation"]}" . strval(str_pad($clubMemberCount + 1, 3, 0, STR_PAD_LEFT)),
-    'firstName'              => $_POST["firstName"],
-    'lastName'               => $_POST["lastName"],
-    'address1'               => null,
-    'address2'               => null,
-    'postalCode'             => null,
-    'city'                   => null,
-    'phone'                  => null,
-    'email'                  => $_POST["email"],
-    'directDebitAgreement'   => 0,
-    'membershipPaidUntil'    => $_POST["membershipPaidUntil"],
-    'youthMembership'        => isset($_POST["youthMembership"]) ? true : false,
-    'youthMembershipYear'    => $_POST["youthMembershipYear"],
-    'apua'                   => null,
-    'regionAdmin'            => isset($_POST["regionAdmin"]) ? true : false,
-    'admin'                  => isset($_POST["Admin"]) ? true : false,
-    'allowRegion'            => 0,
-    'allowAll'               => 0,
-    'passWord'               => password_hash($_POST["password"], PASSWORD_DEFAULT),
-    'passWordChanged'        => 0,
-  ];
-
   try {
-    $newUser = $member->createMember($data);
-    $clubRelation->createClubRelation(['memberID' => $newUser["MemberID"], 'clubID' => $_POST["club"]]);
-    $memberRole->createMemberRole(['roleID' => $_POST["role"], 'memberID' => $newUser["MemberID"]]);
+    $memberController->CreateMember($_POST);
     echo "<script>alert('nyt medlem tilføjet')</script>";
   } catch (Exception $ex) {
     echo "<script>console.log({'$ex'})</script>";

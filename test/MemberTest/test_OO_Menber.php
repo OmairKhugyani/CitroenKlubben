@@ -18,10 +18,10 @@ if (true) {
   $member->passWord = "123";
 
   $member->createMember();
-  print_r($member->getMemberById($db->lastInsertId()));
+  $member->getMemberById($db->lastInsertId());
+  print_r($member);
 
-  $member->isApua = true;
-  $member->passWordChanged = true;
+
 
   // $member->updateMember();
   // print_r($member->getMemberByLocalMemberID($member->localMemberID));
@@ -33,7 +33,7 @@ if (true) {
   // print_r($member->getMemberByLocalMemberID($member->localMemberID));
   // echo $member->allowAll == true ? 'true' : 'false';
 
-  //$member->deleteMember($member->memberID);
+  $member->deleteMember($member->memberID);
 } else {
   $members = $member->getAllMembers();
   print_r($members);

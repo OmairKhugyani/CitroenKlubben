@@ -1,7 +1,6 @@
 <?php
 
 // Lokale klubber
-
 // 0 none
 // 1 Nordvestjysk
 // 2 Midtjylland
@@ -13,9 +12,7 @@
 // 8 De Flyvende Citroner – øvrige Sjælland og Bornholm
 // 9 Sydhavsøerne
 
-
 // Modelrelaterede klubber
-
 // 10 CX-club
 // 11 HY-TEAM
 // 12 MEHARI-gruppen
@@ -32,6 +29,14 @@ class Club
     public string $clubName;
     public float $membershipFee;
     public string $abbreviation;
+
+    private function populateClub($data)
+    {
+        $this->clubID        = $data['ClubID'];
+        $this->clubName      = $data['ClubName'];
+        //$this->membershipFee = $data['MemberShipFee'];
+        $this->abbreviation  = $data['Abbreviation'];
+    }
 
     // Constructor to initialize the database
     public function __construct($db)
@@ -53,17 +58,35 @@ class Club
     public function getAllClubs()
     {
         $sql = "SELECT * FROM Club";
-        $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $clubs = [];
+
+        foreach ($results as $result) {
+            $club = new self($this->db);
+            $club->populateClub($result);
+            $clubs[] = $club;
+        }
+        return $clubs;
     }
 
     // Retrieve a club by ID
-    public function getClubById($clubID)
+    public function getClubById(int $clubID)
     {
         $sql = "SELECT * FROM Club WHERE ClubID = :clubID";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([':clubID' => $clubID]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':clubID', $clubID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $this->populateClub($result);
+            return $this;
+        } else {
+            return null;
+        }
     }
 
     // Update a club
